@@ -10,7 +10,12 @@ h6 {
 
 a {
   text-decoration: none;
-  color: $base-white;
+  color: $gray-light;
+  font-style: italic;
+
+  &:hover {
+    color: $base-white;
+  }
 }
 
 li::marker {

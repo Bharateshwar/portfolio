@@ -6,12 +6,29 @@ h5,
 h6 {
   font-family: $font-secondary;
   color: $base-white;
+  font-weight: $fw-regular;
+  letter-spacing: 0.06em;
+}
+
+h1 {
+  // Extra precision for larger fonts
+  font-size: 9.7222222vw;
+  line-height: 1;
+  margin: 0;
+}
+
+p {
+  color: $gray-light;
+  margin: 0;
+  letter-spacing: 0.06em;
 }
 
 a {
   text-decoration: none;
   color: $gray-light;
   font-style: italic;
+  letter-spacing: 0.06em;
+  font-family: $font-secondary;
 
   &:hover {
     color: $base-white;
@@ -20,4 +37,10 @@ a {
 
 li::marker {
   color: $base-white;
+}
+
+.body-large {
+  font-size: 1.667vw;
+  line-height: 1.36;
+  letter-spacing: 0.05em;
 }

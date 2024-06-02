@@ -1,0 +1,25 @@
+.hero {
+  &__intro {
+    margin: 9.514vw 0 0.694vw;
+  }
+
+  &__headline {
+    display: flex;
+    flex-direction: column;
+
+    &__item--one {
+      margin-left: -0.0628em;
+    }
+
+    &__item--two {
+      align-self: flex-end;
+      margin-top: 1.25vw;
+      margin-right: -0.0628em;
+    }
+  }
+
+  &__description {
+    max-width: 32.778vw;
+    margin-top: -8.056vw;
+  }
+}

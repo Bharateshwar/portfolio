@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .rolling-carousel {
   position: relative;
   width: 48.611vw;
@@ -15,9 +17,13 @@
   }
 
   &__item {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: max-content;
+    // @TODO: Make variables for often used values like 0.139vw (i.e 1px)
+    border: 0.139vw solid $gray-dark;
+    background: $base-black;
+    opacity: 0;
+    height: 5.208vw;
+    width: 5.208vw;
+    border-radius: 1.111vw;
   }
 }

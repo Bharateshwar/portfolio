@@ -1,0 +1,29 @@
+@import "./variables.scss";
+
+.rolling-carousel {
+  position: relative;
+  width: 48.611vw;
+  height: 48.611vw;
+  margin: 8.333vw 0;
+
+  & > svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  &.--left {
+    // Layout padding left + required margin shift
+    margin-left: -(calc(3.472vw + 6.25vw));
+  }
+
+  &__item {
+    width: max-content;
+    // @TODO: Make variables for often used values like 0.139vw (i.e 1px)
+    border: 0.139vw solid $gray-dark;
+    background: $base-black;
+    opacity: 0;
+    height: 5.208vw;
+    width: 5.208vw;
+    border-radius: 1.111vw;
+  }
+}

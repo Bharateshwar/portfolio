@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 
 import Hero from "components/hero";
+import RollingCaoursel from "components/rollingCarousel";
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,6 +14,7 @@ export default function Index() {
   return (
     <>
       <Hero />
+      <RollingCaoursel />
     </>
   );
 }

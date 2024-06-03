@@ -1,0 +1,23 @@
+.rolling-carousel {
+  position: relative;
+  width: 48.611vw;
+  height: 48.611vw;
+  margin: 8.333vw 0;
+
+  & > svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  &.--left {
+    // Layout padding left + required margin shift
+    margin-left: -(calc(3.472vw + 6.25vw));
+  }
+
+  &__item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

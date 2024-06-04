@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import gsap from "gsap/dist/gsap";
@@ -9,18 +9,16 @@ import "styles/rolling-carousel.scss";
 // @TODO: Move to props
 const carouselItems = [{ title: "" }, { title: "" }, { title: "" }];
 
+if (typeof document !== "undefined") {
+  gsap.registerPlugin(MotionPathPlugin, useGSAP);
+}
+
 function RollingCaoursel({
   alignment = "left",
 }: {
   alignment: "left" | "right";
 }) {
   const mainContainerRef = useRef<HTMLDivElement>(null);
-
-  // register gsap plugins
-  useEffect(() => {
-    gsap.registerPlugin(MotionPathPlugin);
-    gsap.registerPlugin(useGSAP);
-  }, []);
 
   useGSAP(
     () => {

@@ -25,33 +25,31 @@ function RollingCaoursel({
   useGSAP(
     () => {
       const itemsPlacementGap = 1 / carouselItems.length;
-      const carouselItemElements: gsap.TweenTarget[] = gsap.utils.toArray(
-        ".rolling-carousel__item"
-      );
 
       // Reposition items to align to their centers
-      gsap.set(carouselItemElements, {
+      gsap.set(".rolling-carousel__item", {
         xPercent: -50,
         yPercent: -50,
         transformOrigin: "50% 50%",
       });
 
       // Fade items into view
-      gsap.to(carouselItemElements, { opacity: 1 });
+      gsap.to(".rolling-carousel__item", { opacity: 1 });
 
       // Animate items along svg path
-      carouselItemElements.forEach((item, index) => {
-        gsap.to(item, {
-          motionPath: {
-            path: "#layout-circle-path",
-            align: "#layout-circle-path",
-            start: index * itemsPlacementGap + (alignment === "left" ? 1 : 0),
-            end: index * itemsPlacementGap + (alignment === "left" ? 0 : 1),
-          },
-          duration: 10,
-          repeat: -1,
-          ease: "none",
-        });
+
+      gsap.to(".rolling-carousel__item", {
+        // @ts-expect-error: Wrong gsap type defs
+        motionPath: {
+          path: "#layout-circle-path",
+          align: "#layout-circle-path",
+          start: (index: number) => index * itemsPlacementGap + 1,
+          end: (index: number) => index * itemsPlacementGap,
+        },
+        duration: 10,
+        repeat: -1,
+        ease: "none",
+        runBackwards: alignment === "right",
       });
     },
     { scope: mainContainerRef }

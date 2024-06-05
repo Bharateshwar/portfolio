@@ -11,7 +11,7 @@
     width: 100%;
   }
 
-  &.--left {
+  &--left {
     // Layout padding left + required margin shift
     margin-left: -(calc(3.472vw + 6.25vw));
   }

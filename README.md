@@ -34,3 +34,7 @@ Make sure to deploy the output of `yarn build`
 
 - `build/server`
 - `build/client`
+
+### Project Features
+
+- BEM

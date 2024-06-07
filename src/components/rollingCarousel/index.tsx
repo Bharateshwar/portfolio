@@ -24,6 +24,7 @@ if (typeof document !== "undefined") {
 
 // @TODO: Move to props
 const carouselItems = [{ title: "" }, { title: "" }, { title: "" }];
+const itemsPlacementGap = 1 / carouselItems.length;
 
 function RollingCaoursel({ alignment = "left" }: Props) {
   const mainContainerRef = useRef<HTMLDivElement>(null);
@@ -66,8 +67,52 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     const initialAnimation = gsap.getById(INITIAL_ANIMATION_ID);
 
     initialAnimation.pause();
-    gsap.set(CIRCLE_SVG_SELECTOR, {
-      rotate: initialAnimation.progress() * 360,
+
+    const tl = gsap.timeline();
+
+    gsap.utils.toArray(CAROUSEL_ITEM_SELECTOR).forEach((item, index) => {
+      // @ts-expect-error: Wrong gsap type defs
+      tl.to(
+        item as gsap.DOMTarget,
+        {
+          duration: 3,
+          motionPath: {
+            path: CIRCLE_PATH_SELECTOR,
+            align: CIRCLE_PATH_SELECTOR,
+            start: () => {
+              const initialPostion = index * itemsPlacementGap;
+
+              return initialAnimation.progress() + initialPostion;
+            },
+            end: () => {
+              return (
+                1 / carouselItems.length +
+                initialAnimation.progress() +
+                index * itemsPlacementGap
+              );
+            },
+          },
+          ease: "none",
+          // runBackwards: alignment === "left",
+        },
+        "0"
+      );
+      tl.to(
+        item as gsap.DOMTarget,
+        {
+          scale: 5,
+        },
+        `${index * (tl.duration() / carouselItems.length)}`
+      );
+
+      tl.to(
+        item as gsap.DOMTarget,
+        {
+          scale: 1,
+        },
+        ">"
+      );
+      tl.addLabel(`anim-${index}`);
     });
 
     ScrollTrigger.create({
@@ -76,14 +121,12 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       start: "top 10%",
       end: "+=2000",
       pin: true,
-      scrub: 2,
-      animation: createRollingAnimation(),
+      scrub: true,
+      animation: tl,
     });
   };
 
   const createRollingAnimation = (withRepeat = false) => {
-    const itemsPlacementGap = 1 / carouselItems.length;
-
     return gsap.to(CAROUSEL_ITEM_SELECTOR, {
       // @ts-expect-error: Wrong gsap type defs
       motionPath: {
@@ -100,7 +143,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
           }
         : {}),
       ease: "none",
-      runBackwards: alignment === "left",
+      // runBackwards: alignment === "left",
     });
   };
 
@@ -108,6 +151,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     return carouselItems?.map(({ title }, index) => {
       return (
         <div className={CAROUSEL_ITEM_CLASS} key={index}>
+          <h2>{index}</h2>
           <div className={`${CAROUSEL_ITEM_CLASS}__inner-container`}>
             <h2>{title}</h2>
           </div>

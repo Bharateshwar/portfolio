@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { Flip } from "gsap/dist/Flip";
 import gsap from "gsap/dist/gsap";
 import cx from "classnames";
 
@@ -10,44 +11,60 @@ import "styles/rolling-carousel.scss";
 import {
   CAROUSEL_ITEM_CLASS,
   CAROUSEL_ITEM_SELECTOR,
+  CAROUSEL_ITEM_CONTENT_CLASS,
+  CAROUSEL_ITEM_CONTENT_SELECTOR,
   CIRCLE_PATH_ID,
   CIRCLE_PATH_SELECTOR,
   CIRCLE_SVG_ID,
   CIRCLE_SVG_SELECTOR,
   INITIAL_ANIMATION_ID,
+  SCRUBBED_ROLLING_ANIMATION_ID,
   SCRUB_ANIMATION_TRIGGER_ID,
+  CAROUSEL_ANCHOR_CLASS,
+  CAROUSEL_ANCHOR_SELECTOR,
 } from "./constants";
 
 if (typeof document !== "undefined") {
-  gsap.registerPlugin(MotionPathPlugin, useGSAP, ScrollTrigger);
+  gsap.registerPlugin(MotionPathPlugin, useGSAP, ScrollTrigger, Flip);
 }
 
 // @TODO: Move to props
-const carouselItems = [{ title: "" }, { title: "" }, { title: "" }];
+const carouselItems = [
+  { title: "A" },
+  { title: "B" },
+  { title: "C" },
+  { title: "D" },
+  { title: "E" },
+];
+const itemsCount = carouselItems.length;
 
 function RollingCaoursel({ alignment = "left" }: Props) {
   const mainContainerRef = useRef<HTMLDivElement>(null);
+  const lastActiveIndexRef = useRef(-1);
 
   useGSAP(
     () => {
-      // Reposition items to align to their centers
-      gsap.set(CAROUSEL_ITEM_SELECTOR, {
-        xPercent: -50,
-        yPercent: -50,
-        transformOrigin: "50% 50%",
-      });
+      // Get elements
+      const carouselItems = gsap.utils.toArray(
+        CAROUSEL_ITEM_SELECTOR
+      ) as HTMLDivElement[];
+      const carouselContentElements = gsap.utils.toArray(
+        CAROUSEL_ITEM_CONTENT_SELECTOR
+      ) as HTMLDivElement[];
 
       // Fade items into view
-      gsap.to(CAROUSEL_ITEM_SELECTOR, { opacity: 1 });
+      gsap.to(carouselItems, { opacity: 1 });
 
       // Animate items along svg path
-      createRollingAnimation(true);
+      createRollingAnimation(carouselItems, true);
 
+      // Main carousel scroll scrubbed animation trigger
       ScrollTrigger.create({
         trigger: mainContainerRef.current,
         start: "top 10%",
         end: "+=2000",
-        onEnter: startScrubAnimation,
+        onEnter: () =>
+          startScrubbedAnimation(carouselItems, carouselContentElements),
         onLeaveBack: startInitialAnimation,
       });
     },
@@ -55,6 +72,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
   );
 
   const startInitialAnimation = () => {
+    // @TODO: Handle scrubbed complete
     gsap.set(CIRCLE_SVG_SELECTOR, {
       rotate: 0,
     });
@@ -62,29 +80,99 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     ScrollTrigger.getById(SCRUB_ANIMATION_TRIGGER_ID)?.kill(true);
   };
 
-  const startScrubAnimation = () => {
+  const startScrubbedAnimation = (
+    carouselItems: HTMLDivElement[],
+    carouselContentElements: HTMLDivElement[]
+  ) => {
     const initialAnimation = gsap.getById(INITIAL_ANIMATION_ID);
 
+    // Pause initial animation & rotate path to avoid items jumping to (visual) start
     initialAnimation.pause();
     gsap.set(CIRCLE_SVG_SELECTOR, {
       rotate: initialAnimation.progress() * 360,
     });
 
+    // @TODO: Move animation and onUpdate to the main scroll trigger
     ScrollTrigger.create({
       id: SCRUB_ANIMATION_TRIGGER_ID,
       trigger: mainContainerRef.current,
       start: "top 10%",
       end: "+=2000",
       pin: true,
-      scrub: 2,
-      animation: createRollingAnimation(),
+      scrub: true,
+      animation: createRollingAnimation(carouselItems),
+      onUpdate: (self) =>
+        onScrubAnimationUpdate(self, carouselItems, carouselContentElements),
     });
   };
 
-  const createRollingAnimation = (withRepeat = false) => {
-    const itemsPlacementGap = 1 / carouselItems.length;
+  const onScrubAnimationUpdate = (
+    { progress }: ScrollTrigger,
+    carouselItems: HTMLDivElement[],
+    carouselContentElements: HTMLDivElement[]
+  ) => {
+    const roundedProgress = Math.round(progress * 100);
+    const range = 100 / itemsCount;
 
-    return gsap.to(CAROUSEL_ITEM_SELECTOR, {
+    const activeItemIndex = Math.min(
+      Math.floor(roundedProgress / range),
+      itemsCount - 1
+    );
+
+    if (lastActiveIndexRef.current === activeItemIndex) {
+      return;
+    }
+
+    // reset last active
+    if (lastActiveIndexRef.current !== -1) {
+      flipItem(
+        carouselItems[lastActiveIndexRef.current],
+        carouselContentElements[lastActiveIndexRef.current]
+      );
+    }
+
+    // flip current active to anchor
+    lastActiveIndexRef.current = activeItemIndex;
+    flipItem(
+      carouselItems[activeItemIndex] as HTMLDivElement,
+      carouselContentElements[activeItemIndex] as HTMLDivElement
+    );
+  };
+
+  const flipItem = (
+    activeItem: HTMLDivElement,
+    itemCotnentElement: HTMLDivElement
+  ) => {
+    if (!activeItem) return;
+
+    const anchorElement = document.querySelector(
+      CAROUSEL_ANCHOR_SELECTOR
+    ) as HTMLDivElement;
+
+    if (itemCotnentElement) {
+      const state = Flip.getState(itemCotnentElement);
+      (itemCotnentElement.parentNode === anchorElement
+        ? activeItem
+        : anchorElement
+      ).appendChild(itemCotnentElement);
+
+      Flip.from(state, {
+        duration: 0.5,
+        scale: true,
+        ease: "power1.inOut",
+        absolute: true,
+        nested: true,
+      });
+    }
+  };
+
+  const createRollingAnimation = (
+    items: HTMLDivElement[],
+    withRepeat = false
+  ) => {
+    const itemsPlacementGap = 1 / itemsCount;
+
+    return gsap.to(items, {
       // @ts-expect-error: Wrong gsap type defs
       motionPath: {
         path: CIRCLE_PATH_SELECTOR,
@@ -98,7 +186,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
             repeat: -1,
             id: INITIAL_ANIMATION_ID,
           }
-        : {}),
+        : { id: SCRUBBED_ROLLING_ANIMATION_ID }),
       ease: "none",
       runBackwards: alignment === "left",
     });
@@ -108,7 +196,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     return carouselItems?.map(({ title }, index) => {
       return (
         <div className={CAROUSEL_ITEM_CLASS} key={index}>
-          <div className={`${CAROUSEL_ITEM_CLASS}__inner-container`}>
+          <div className={`${CAROUSEL_ITEM_CONTENT_CLASS}`}>
             <h2>{title}</h2>
           </div>
         </div>
@@ -126,6 +214,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
         })}
       >
         <LayoutCircle id={CIRCLE_SVG_ID} pathId={CIRCLE_PATH_ID} />
+        <div className={CAROUSEL_ANCHOR_CLASS}></div>
         {renderCarouselItems()}
       </div>
     </div>

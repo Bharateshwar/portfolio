@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./mixins.scss";
 
 .rolling-carousel {
   position: relative;
@@ -17,13 +18,25 @@
   }
 
   &__item {
-    width: max-content;
-    // @TODO: Make variables for often used values like 0.139vw (i.e 1px)
-    border: 0.139vw solid $gray-dark;
-    background: $base-black;
     opacity: 0;
-    height: 5.208vw;
-    width: 5.208vw;
-    border-radius: 1.111vw;
+    position: relative;
+    @include absolute-center;
+
+    &__content {
+      @include absolute-center;
+      border: 0.139vw solid $gray-dark;
+      background: $base-black;
+      border-radius: 1.111vw;
+      height: 5.208vw;
+      width: 5.208vw;
+    }
+  }
+
+  &__anchor {
+    @include absolute-center;
+
+    & > * {
+      @include absolute-center;
+    }
   }
 }

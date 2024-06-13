@@ -40,9 +40,12 @@ export const carouselItems: CarouselItem[] = [
     ],
   },
   {
+    title: "D",
+    graphics: [{ imgSrc: "/images/placeholder.jpeg", altText: "Item grahic" }],
+  },
+  {
     title: "B",
     graphics: [
-      { imgSrc: "/images/placeholder.jpeg", altText: "Item grahic" },
       { imgSrc: "/images/placeholder.jpeg", altText: "Item grahic" },
       { imgSrc: "/images/placeholder.jpeg", altText: "Item grahic" },
     ],
@@ -56,10 +59,7 @@ export const carouselItems: CarouselItem[] = [
     graphics: [
       { imgSrc: "/images/placeholder.jpeg", altText: "Item grahic" },
       { imgSrc: "/images/placeholder.jpeg", altText: "Item grahic" },
+      { imgSrc: "/images/placeholder.jpeg", altText: "Item grahic" },
     ],
-  },
-  {
-    title: "D",
-    graphics: [{ imgSrc: "/images/placeholder.jpeg", altText: "Item grahic" }],
   },
 ];

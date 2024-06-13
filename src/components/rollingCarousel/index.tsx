@@ -22,25 +22,20 @@ import {
   SCRUB_ANIMATION_TRIGGER_ID,
   CAROUSEL_ANCHOR_CLASS,
   CAROUSEL_ANCHOR_SELECTOR,
+  carouselItems,
+  CarouselItem,
+  CarouselItemGraphic,
 } from "./constants";
 
 if (typeof document !== "undefined") {
   gsap.registerPlugin(MotionPathPlugin, useGSAP, ScrollTrigger, Flip);
 }
 
-// @TODO: Move to props
-const carouselItems = [
-  { title: "A" },
-  { title: "B" },
-  { title: "C" },
-  { title: "D" },
-  { title: "E" },
-];
 const itemsCount = carouselItems.length;
 
 function RollingCaoursel({ alignment = "left" }: Props) {
   const mainContainerRef = useRef<HTMLDivElement>(null);
-  const lastActiveIndexRef = useRef(-1);
+  const activeIndexRef = useRef(-1);
 
   useGSAP(
     () => {
@@ -119,20 +114,20 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       itemsCount - 1
     );
 
-    if (lastActiveIndexRef.current === activeItemIndex) {
+    if (activeIndexRef.current === activeItemIndex) {
       return;
     }
 
     // reset last active
-    if (lastActiveIndexRef.current !== -1) {
+    if (activeIndexRef.current !== -1) {
       flipItem(
-        carouselItems[lastActiveIndexRef.current],
-        carouselContentElements[lastActiveIndexRef.current]
+        carouselItems[activeIndexRef.current],
+        carouselContentElements[activeIndexRef.current]
       );
     }
 
     // flip current active to anchor
-    lastActiveIndexRef.current = activeItemIndex;
+    activeIndexRef.current = activeItemIndex;
     flipItem(
       carouselItems[activeItemIndex] as HTMLDivElement,
       carouselContentElements[activeItemIndex] as HTMLDivElement
@@ -160,8 +155,6 @@ function RollingCaoursel({ alignment = "left" }: Props) {
         duration: 0.5,
         scale: true,
         ease: "power1.inOut",
-        absolute: true,
-        nested: true,
       });
     }
   };
@@ -192,12 +185,46 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     });
   };
 
+  const renderGraphic = (graphics: CarouselItemGraphic[]) => {
+    return graphics.map(({ imgSrc, altText }, index) => {
+      return (
+        <div
+          className={cx(
+            "rolling-carousel__layout__item-container",
+            // Avoiding word numbered class to differentitate b/w layout and graphic modifiers
+            `graphic-${index}`
+          )}
+          key={index}
+        >
+          <img src={imgSrc} alt={altText} />
+        </div>
+      );
+    });
+  };
+
+  const renderItemContent = ({ graphics }: CarouselItem) => {
+    const graphicsLength = graphics.length;
+
+    return (
+      <div
+        className={cx("rolling-carousel__layout", {
+          "rolling-carousel__layout--one": graphicsLength === 1,
+          "rolling-carousel__layout--two": graphicsLength === 2,
+          "rolling-carousel__layout--three": graphicsLength === 3,
+          "rolling-carousel__layout--four": graphicsLength >= 4,
+        })}
+      >
+        {renderGraphic(graphics)}
+      </div>
+    );
+  };
+
   const renderCarouselItems = () => {
-    return carouselItems?.map(({ title }, index) => {
+    return carouselItems?.map((data, index) => {
       return (
         <div className={CAROUSEL_ITEM_CLASS} key={index}>
           <div className={`${CAROUSEL_ITEM_CONTENT_CLASS}`}>
-            <h2>{title}</h2>
+            {renderItemContent(data)}
           </div>
         </div>
       );

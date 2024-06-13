@@ -43,7 +43,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       const carouselItems = gsap.utils.toArray(
         CAROUSEL_ITEM_SELECTOR
       ) as HTMLDivElement[];
-      const carouselContentElements = gsap.utils.toArray(
+      const itemContentElements = gsap.utils.toArray(
         CAROUSEL_ITEM_CONTENT_SELECTOR
       ) as HTMLDivElement[];
 
@@ -59,7 +59,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
         start: "top 10%",
         end: "+=2000",
         onEnter: () =>
-          startScrubbedAnimation(carouselItems, carouselContentElements),
+          startScrubbedAnimation(carouselItems, itemContentElements),
         onLeaveBack: startInitialAnimation,
       });
     },
@@ -77,7 +77,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
 
   const startScrubbedAnimation = (
     carouselItems: HTMLDivElement[],
-    carouselContentElements: HTMLDivElement[]
+    itemContentElements: HTMLDivElement[]
   ) => {
     const initialAnimation = gsap.getById(INITIAL_ANIMATION_ID);
 
@@ -97,14 +97,14 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       scrub: true,
       animation: createRollingAnimation(carouselItems),
       onUpdate: (self) =>
-        onScrubAnimationUpdate(self, carouselItems, carouselContentElements),
+        onScrubAnimationUpdate(self, carouselItems, itemContentElements),
     });
   };
 
   const onScrubAnimationUpdate = (
     { progress }: ScrollTrigger,
     carouselItems: HTMLDivElement[],
-    carouselContentElements: HTMLDivElement[]
+    itemContentElements: HTMLDivElement[]
   ) => {
     const roundedProgress = Math.round(progress * 100);
     const range = 100 / itemsCount;
@@ -122,7 +122,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     if (activeIndexRef.current !== -1) {
       flipItem(
         carouselItems[activeIndexRef.current],
-        carouselContentElements[activeIndexRef.current]
+        itemContentElements[activeIndexRef.current]
       );
     }
 
@@ -130,7 +130,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     activeIndexRef.current = activeItemIndex;
     flipItem(
       carouselItems[activeItemIndex] as HTMLDivElement,
-      carouselContentElements[activeItemIndex] as HTMLDivElement
+      itemContentElements[activeItemIndex] as HTMLDivElement
     );
   };
 
@@ -145,7 +145,12 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     ) as HTMLDivElement;
 
     if (itemCotnentElement) {
-      const state = Flip.getState(itemCotnentElement);
+      const childElements = itemCotnentElement.querySelectorAll(
+        ".graphic, .graphic > img"
+      );
+      const state = Flip.getState([itemCotnentElement, ...childElements], {
+        props: "opacity, borderColor",
+      });
       (itemCotnentElement.parentNode === anchorElement
         ? activeItem
         : anchorElement
@@ -190,9 +195,9 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       return (
         <div
           className={cx(
-            "rolling-carousel__layout__item-container",
+            "rolling-carousel__layout__item-container graphic",
             // Avoiding word numbered class to differentitate b/w layout and graphic modifiers
-            `graphic-${index}`
+            `graphic--${index}`
           )}
           key={index}
         >

@@ -94,6 +94,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       trigger: mainContainerRef.current,
       start: "top 10%",
       end: getScrollTriggerEnd,
+      // @TODO: Look into delayed scrubbing
       scrub: true,
       animation: createRollingAnimation(carouselItems),
       onUpdate: (self) =>

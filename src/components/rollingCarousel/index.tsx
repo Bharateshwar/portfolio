@@ -57,7 +57,8 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       ScrollTrigger.create({
         trigger: mainContainerRef.current,
         start: "top 10%",
-        end: "+=2000",
+        end: getScrollTriggerEnd,
+        pin: true,
         onEnter: () =>
           startScrubbedAnimation(carouselItems, itemContentElements),
         onLeaveBack: startInitialAnimation,
@@ -92,13 +93,18 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       id: SCRUB_ANIMATION_TRIGGER_ID,
       trigger: mainContainerRef.current,
       start: "top 10%",
-      end: "+=2000",
-      pin: true,
+      end: getScrollTriggerEnd,
       scrub: true,
       animation: createRollingAnimation(carouselItems),
       onUpdate: (self) =>
         onScrubAnimationUpdate(self, carouselItems, itemContentElements),
     });
+  };
+
+  const getScrollTriggerEnd = () => {
+    const perElementHeight = Math.max(window.innerHeight, 500);
+
+    return `+=${carouselItems.length * perElementHeight}`;
   };
 
   const onScrubAnimationUpdate = (

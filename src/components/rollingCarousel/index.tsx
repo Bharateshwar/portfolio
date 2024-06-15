@@ -167,6 +167,12 @@ function RollingCaoursel({ alignment = "left" }: Props) {
         duration: 0.5,
         scale: true,
         ease: "power1.inOut",
+        onStart() {
+          activeItem.style.zIndex = "1";
+        },
+        onComplete() {
+          activeItem.style.zIndex = "";
+        },
       });
     }
   };

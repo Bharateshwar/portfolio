@@ -1,6 +1,10 @@
 @import "./variables.scss";
 @import "./mixins.scss";
 
+/**
+* Carousel layering (zIndexes) note:
+* SVG Path is -2, rolling item is -1, gsap flip active (in TS Code) item is 1 and anchor is 2.
+*/
 .rolling-carousel {
   position: relative;
   width: 48.611vw;
@@ -10,6 +14,8 @@
   & > svg {
     height: 100%;
     width: 100%;
+    z-index: -2;
+    position: relative;
   }
 
   &--left {
@@ -22,6 +28,7 @@
     position: relative;
     @include absolute-center;
     scale: 0.12;
+    z-index: -1;
 
     img {
       opacity: 0;
@@ -130,7 +137,7 @@
 
   &__anchor {
     @include absolute-center;
-    z-index: 1;
+    z-index: 2;
 
     & > * {
       @include absolute-center;

@@ -57,7 +57,8 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       ScrollTrigger.create({
         trigger: mainContainerRef.current,
         start: "top 10%",
-        end: "+=2000",
+        end: getScrollTriggerEnd,
+        pin: true,
         onEnter: () =>
           startScrubbedAnimation(carouselItems, itemContentElements),
         onLeaveBack: startInitialAnimation,
@@ -92,13 +93,19 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       id: SCRUB_ANIMATION_TRIGGER_ID,
       trigger: mainContainerRef.current,
       start: "top 10%",
-      end: "+=2000",
-      pin: true,
+      end: getScrollTriggerEnd,
+      // @TODO: Look into delayed scrubbing
       scrub: true,
       animation: createRollingAnimation(carouselItems),
       onUpdate: (self) =>
         onScrubAnimationUpdate(self, carouselItems, itemContentElements),
     });
+  };
+
+  const getScrollTriggerEnd = () => {
+    const perElementHeight = Math.max(window.innerHeight, 500);
+
+    return `+=${carouselItems.length * perElementHeight}`;
   };
 
   const onScrubAnimationUpdate = (
@@ -160,6 +167,12 @@ function RollingCaoursel({ alignment = "left" }: Props) {
         duration: 0.5,
         scale: true,
         ease: "power1.inOut",
+        onStart() {
+          activeItem.style.zIndex = "1";
+        },
+        onComplete() {
+          activeItem.style.zIndex = "";
+        },
       });
     }
   };

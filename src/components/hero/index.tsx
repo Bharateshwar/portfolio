@@ -9,8 +9,8 @@ function Hero() {
         <span className="hero__headline__item--two">Developer</span>
       </h1>
       <p className="hero__description body-large">
-        le content of a page when looking at its layout. Topposed to using
-        &apos;Content here, content here&apos;, making
+        For over half a decade, I&apos;ve been dedicated to creating quality web
+        solutions while working remotely from India.
       </p>
     </div>
   );

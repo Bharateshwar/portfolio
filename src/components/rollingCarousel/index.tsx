@@ -250,7 +250,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
   };
 
   return (
-    <div>
+    <div className="two-col-layout">
       <div
         ref={mainContainerRef}
         className={cx("rolling-carousel", {
@@ -261,6 +261,14 @@ function RollingCaoursel({ alignment = "left" }: Props) {
         <LayoutCircle id={CIRCLE_SVG_ID} pathId={CIRCLE_PATH_ID} />
         <div className={CAROUSEL_ANCHOR_CLASS}></div>
         {renderCarouselItems()}
+      </div>
+      <div className="slides">
+        {carouselItems.map(({ title, description }, index) => (
+          <div className="slides__item" key={index}>
+            <h2>{title}</h2>
+            <p>{description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -151,3 +151,16 @@
     }
   }
 }
+
+.slides {
+  &__item {
+    height: 100dvh;
+    min-height: 500px;
+    display: flex;
+    max-width: 44.444vw;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.111vw;
+  }
+}

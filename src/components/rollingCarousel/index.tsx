@@ -27,6 +27,10 @@ import {
   CarouselItemGraphic,
   SLIDES_ITEM_CONTENT_SELECTOR,
   SLIDES_ITEM_CONTENT_CLASS,
+  CAROUSEL_GRAPHIC_CLASS,
+  CAROUSEL_GRAPHIC_SELECTOR,
+  CAROUSEL_GRAPHIC_ITEM_CLASS,
+  CAROUSEL_GRAPHIC_ITEM_SELECTOR,
 } from "./constants";
 
 if (typeof document !== "undefined") {
@@ -213,8 +217,9 @@ function RollingCaoursel({ alignment = "left" }: Props) {
 
     if (itemCotnentElement) {
       const childElements = itemCotnentElement.querySelectorAll(
-        ".graphic, .graphic > img"
+        `${CAROUSEL_GRAPHIC_SELECTOR}, ${CAROUSEL_GRAPHIC_ITEM_SELECTOR}`
       );
+
       const state = Flip.getState([itemCotnentElement, ...childElements], {
         props: "opacity, borderColor",
       });
@@ -268,13 +273,17 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       return (
         <div
           className={cx(
-            "rolling-carousel__layout__item-container graphic",
+            CAROUSEL_GRAPHIC_CLASS,
             // Avoiding word numbered class to differentitate b/w layout and graphic modifiers
-            `graphic--${index}`
+            `${CAROUSEL_GRAPHIC_CLASS}--${index}`
           )}
           key={index}
         >
-          <img src={imgSrc} alt={altText} />
+          <img
+            src={imgSrc}
+            alt={altText}
+            className={CAROUSEL_GRAPHIC_ITEM_CLASS}
+          />
         </div>
       );
     });

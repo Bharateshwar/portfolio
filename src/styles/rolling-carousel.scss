@@ -9,7 +9,6 @@
   position: relative;
   width: 48.611vw;
   height: 48.611vw;
-  margin: 8.333vw 0;
 
   & > svg {
     height: 100%;
@@ -27,7 +26,7 @@
     opacity: 0;
     position: relative;
     @include absolute-center;
-    scale: 0.12;
+    scale: 0.09;
     z-index: -1;
 
     img {
@@ -45,7 +44,7 @@
 
     &__item-container {
       border: 0.65vw solid $gray-dark;
-      border-radius: 5vw;
+      border-radius: 4vw;
       height: 100%;
       width: 100%;
       overflow: hidden;
@@ -83,9 +82,9 @@
 
     &--three {
       height: 40vw;
-      width: 50vw;
+      width: 40vw;
       display: flex;
-      margin-left: 10vw;
+      margin-left: 7vw;
       gap: 1vw;
 
       .graphic--1 {
@@ -152,15 +151,30 @@
   }
 }
 
+.rolling-carousel-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 8.333vw 0;
+}
+
 .slides {
   &__item {
     height: 100dvh;
     min-height: 500px;
-    display: flex;
     max-width: 44.444vw;
     margin: auto;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.111vw;
+    display: flex;
+    align-items: center;
+    will-change: transform;
+
+    &__content {
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.111vw;
+      will-change: opacity, transform;
+      padding-bottom: 15vh;
+    }
   }
 }

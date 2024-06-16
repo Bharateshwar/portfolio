@@ -25,6 +25,8 @@ import {
   carouselItems,
   CarouselItem,
   CarouselItemGraphic,
+  SLIDES_ITEM_CONTENT_SELECTOR,
+  SLIDES_ITEM_CONTENT_CLASS,
 } from "./constants";
 
 if (typeof document !== "undefined") {
@@ -35,6 +37,7 @@ const itemsCount = carouselItems.length;
 
 function RollingCaoursel({ alignment = "left" }: Props) {
   const mainContainerRef = useRef<HTMLDivElement>(null);
+  const slidesContainerRef = useRef<HTMLDivElement>(null);
   const activeIndexRef = useRef(-1);
 
   useGSAP(
@@ -57,7 +60,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       ScrollTrigger.create({
         trigger: mainContainerRef.current,
         start: "top 10%",
-        end: getScrollTriggerEnd,
+        end: () => getScrollTriggerEnd(),
         pin: true,
         onEnter: () =>
           startScrubbedAnimation(carouselItems, itemContentElements),
@@ -65,6 +68,61 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       });
     },
     { scope: mainContainerRef }
+  );
+
+  useGSAP(
+    () => {
+      const defaultProperties = { ease: "power2.inOut", duration: 0.5 };
+      const slides: HTMLDivElement[] = gsap.utils.toArray(
+        SLIDES_ITEM_CONTENT_SELECTOR
+      );
+
+      gsap.set(slides[0], { opacity: 1 });
+      slides.forEach((slide, index) => {
+        ScrollTrigger.create({
+          trigger: slide.parentNode as HTMLDivElement,
+          start: "top 10%",
+          end: () => getScrollTriggerEnd(true),
+          pin: true,
+          pinSpacing: false,
+          scrub: true,
+          onEnter() {
+            if (index === 0) return;
+
+            gsap.fromTo(
+              slide,
+              { opacity: -2, yPercent: 305 },
+              { opacity: 1, yPercent: 0, ...defaultProperties }
+            );
+          },
+          onLeave() {
+            gsap.fromTo(
+              slide,
+              { opacity: 1, yPercent: 0 },
+              { opacity: -2, yPercent: -305, ...defaultProperties }
+            );
+          },
+          onEnterBack() {
+            gsap.fromTo(
+              slide,
+              { opacity: -2, yPercent: -305 },
+              { opacity: 1, yPercent: 0, ...defaultProperties }
+            );
+          },
+          onLeaveBack() {
+            if (index === 0) return;
+
+            gsap.fromTo(
+              slide,
+              { opacity: 1, yPercent: 0 },
+              { opacity: -2, yPercent: 305, ...defaultProperties }
+            );
+          },
+          animation: gsap.to(slide.parentNode, { yPercent: -10, ease: "none" }),
+        });
+      });
+    },
+    { scope: slidesContainerRef }
   );
 
   const startInitialAnimation = () => {
@@ -93,7 +151,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       id: SCRUB_ANIMATION_TRIGGER_ID,
       trigger: mainContainerRef.current,
       start: "top 10%",
-      end: getScrollTriggerEnd,
+      end: () => getScrollTriggerEnd(),
       // @TODO: Look into delayed scrubbing
       scrub: true,
       animation: createRollingAnimation(carouselItems),
@@ -102,10 +160,10 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     });
   };
 
-  const getScrollTriggerEnd = () => {
+  const getScrollTriggerEnd = (getForSingle = false) => {
     const perElementHeight = Math.max(window.innerHeight, 500);
 
-    return `+=${carouselItems.length * perElementHeight}`;
+    return `+=${perElementHeight * (getForSingle ? 1 : carouselItems.length)}`;
   };
 
   const onScrubAnimationUpdate = (
@@ -250,7 +308,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
   };
 
   return (
-    <div className="two-col-layout">
+    <div className="rolling-carousel-container">
       <div
         ref={mainContainerRef}
         className={cx("rolling-carousel", {
@@ -262,11 +320,13 @@ function RollingCaoursel({ alignment = "left" }: Props) {
         <div className={CAROUSEL_ANCHOR_CLASS}></div>
         {renderCarouselItems()}
       </div>
-      <div className="slides">
+      <div className="slides" ref={slidesContainerRef}>
         {carouselItems.map(({ title, description }, index) => (
           <div className="slides__item" key={index}>
-            <h2>{title}</h2>
-            <p>{description}</p>
+            <div className={SLIDES_ITEM_CONTENT_CLASS}>
+              <h2>{title}</h2>
+              <p>{description}</p>
+            </div>
           </div>
         ))}
       </div>

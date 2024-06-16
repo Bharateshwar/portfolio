@@ -18,6 +18,9 @@ export const CAROUSEL_ANCHOR_SELECTOR = `.${CAROUSEL_ANCHOR_CLASS}`;
 
 export const SCRUB_ANIMATION_TRIGGER_ID = "scrub-trigger";
 
+export const SLIDES_ITEM_CONTENT_CLASS = "slides__item__content";
+export const SLIDES_ITEM_CONTENT_SELECTOR = `.${SLIDES_ITEM_CONTENT_CLASS}`;
+
 // @TODO: Move to props
 export type CarouselItemGraphic = {
   imgSrc: string;

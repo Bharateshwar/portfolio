@@ -10,8 +10,8 @@ export const ROLLING_CAROUSEL_CLASS = "rolling-carousel";
 export const CAROUSEL_ITEM_CLASS = `${ROLLING_CAROUSEL_CLASS}__item`;
 export const CAROUSEL_ITEM_SELECTOR = `.${CAROUSEL_ITEM_CLASS}`;
 
-export const CAROUSEL_ITEM_CONTENT_CLASS = `${CAROUSEL_ITEM_CLASS}__content`;
-export const CAROUSEL_ITEM_CONTENT_SELECTOR = `.${CAROUSEL_ITEM_CONTENT_CLASS}`;
+export const CAROUSEL_ITEM_LAYOUT_CLASS = `${CAROUSEL_ITEM_CLASS}__layout`;
+export const CAROUSEL_ITEM_LAYOUT_SELECTOR = `.${CAROUSEL_ITEM_LAYOUT_CLASS}`;
 
 export const CAROUSEL_GRAPHIC_CLASS = `${ROLLING_CAROUSEL_CLASS}__graphic`;
 export const CAROUSEL_GRAPHIC_SELECTOR = `.${CAROUSEL_GRAPHIC_CLASS}`;
@@ -33,7 +33,7 @@ export type CarouselItemGraphic = {
   altText?: string;
 };
 
-export type CarouselItem = {
+type CarouselItem = {
   title: string;
   description: string;
   graphics: [CarouselItemGraphic, ...CarouselItemGraphic[]];

@@ -29,91 +29,87 @@
     scale: 0.09;
     z-index: -1;
 
-    img {
+    .rolling-carousel__graphic__item {
       opacity: 0;
       will-change: opacity;
     }
 
-    &__content {
+    &__layout {
       @include absolute-center;
-    }
-  }
 
-  &__layout {
-    @include absolute-center;
-
-    &--one {
-      width: 50vw;
-      height: 30vw;
-    }
-
-    &--two {
-      .rolling-carousel__graphic--0 {
-        width: 20vw;
+      &--one {
+        width: 50vw;
         height: 30vw;
-        top: -10vw;
-        left: 20vw;
-        z-index: 2;
-        position: absolute;
       }
 
-      .rolling-carousel__graphic--1 {
+      &--two {
+        .rolling-carousel__graphic--0 {
+          width: 20vw;
+          height: 30vw;
+          top: -10vw;
+          left: 20vw;
+          z-index: 2;
+          position: absolute;
+        }
+
+        .rolling-carousel__graphic--1 {
+          width: 40vw;
+          height: 30vw;
+          margin-left: -10vw;
+        }
+      }
+
+      &--three {
+        height: 40vw;
         width: 40vw;
-        height: 30vw;
-        margin-left: -10vw;
-      }
-    }
+        display: flex;
+        margin-left: 7vw;
+        gap: 1vw;
 
-    &--three {
-      height: 40vw;
-      width: 40vw;
-      display: flex;
-      margin-left: 7vw;
-      gap: 1vw;
+        .rolling-carousel__graphic--1 {
+          margin-top: -2vw;
+        }
 
-      .rolling-carousel__graphic--1 {
-        margin-top: -2vw;
+        .rolling-carousel__graphic--2 {
+          margin-top: -4vw;
+        }
       }
 
-      .rolling-carousel__graphic--2 {
-        margin-top: -4vw;
-      }
-    }
+      &--four {
+        width: 40vw;
+        height: 40vw;
 
-    &--four {
-      width: 40vw;
-      height: 40vw;
+        .rolling-carousel__graphic--0 {
+          width: 100%;
+          height: 25vw;
+        }
 
-      .rolling-carousel__graphic--0 {
-        width: 100%;
-        height: 25vw;
-      }
+        .rolling-carousel__graphic--1 {
+          width: 20vw;
+          height: 20vw;
+          top: -7vw;
+          left: 30vw;
+          z-index: 2;
+          position: absolute;
+        }
 
-      .rolling-carousel__graphic--1 {
-        width: 20vw;
-        height: 20vw;
-        top: -7vw;
-        left: 30vw;
-        z-index: 2;
-        position: absolute;
-      }
+        .rolling-carousel__graphic--2 {
+          width: 20vw;
+          height: 20vw;
+          top: 27vw;
+          left: 10vw;
+          position: absolute;
+        }
 
-      .rolling-carousel__graphic--2 {
-        width: 20vw;
-        height: 20vw;
-        top: 27vw;
-        left: 10vw;
-        position: absolute;
-      }
-
-      .rolling-carousel__graphic--3 {
-        position: absolute;
-        width: 10vw;
-        height: 10vw;
-        border-radius: 2vw;
-        position: absolute;
-        top: 20vw;
-        left: 40vw;
+        .rolling-carousel__graphic--3 {
+          position: absolute;
+          width: 10vw;
+          height: 10vw;
+          border-radius: 2vw;
+          position: absolute;
+          top: 20vw;
+          left: 40vw;
+        }
       }
     }
   }

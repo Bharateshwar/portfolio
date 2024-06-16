@@ -37,6 +37,7 @@ const itemsCount = carouselItems.length;
 
 function RollingCaoursel({ alignment = "left" }: Props) {
   const mainContainerRef = useRef<HTMLDivElement>(null);
+  const carouselContainerRef = useRef<HTMLDivElement>(null);
   const slidesContainerRef = useRef<HTMLDivElement>(null);
   const activeIndexRef = useRef(-1);
 
@@ -45,9 +46,6 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       // Get elements
       const carouselItems = gsap.utils.toArray(
         CAROUSEL_ITEM_SELECTOR
-      ) as HTMLDivElement[];
-      const itemContentElements = gsap.utils.toArray(
-        CAROUSEL_ITEM_CONTENT_SELECTOR
       ) as HTMLDivElement[];
 
       // Fade items into view
@@ -58,21 +56,26 @@ function RollingCaoursel({ alignment = "left" }: Props) {
 
       // Main carousel scroll scrubbed animation trigger
       ScrollTrigger.create({
-        trigger: mainContainerRef.current,
+        trigger: carouselContainerRef.current,
         start: "top 10%",
         end: () => getScrollTriggerEnd(),
         pin: true,
-        onEnter: () =>
-          startScrubbedAnimation(carouselItems, itemContentElements),
+        onEnter: () => startScrubbedAnimation(carouselItems),
         onLeaveBack: startInitialAnimation,
       });
     },
-    { scope: mainContainerRef }
+    { scope: carouselContainerRef }
   );
 
   useGSAP(
     () => {
       const defaultProperties = { ease: "power2.inOut", duration: 0.5 };
+      const carouselItems = gsap.utils.toArray(
+        CAROUSEL_ITEM_SELECTOR
+      ) as HTMLDivElement[];
+      const itemContentElements = gsap.utils.toArray(
+        CAROUSEL_ITEM_CONTENT_SELECTOR
+      ) as HTMLDivElement[];
       const slides: HTMLDivElement[] = gsap.utils.toArray(
         SLIDES_ITEM_CONTENT_SELECTOR
       );
@@ -87,6 +90,8 @@ function RollingCaoursel({ alignment = "left" }: Props) {
           pinSpacing: false,
           scrub: true,
           onEnter() {
+            onSlideChange(index, carouselItems, itemContentElements);
+
             if (index === 0) return;
 
             gsap.fromTo(
@@ -96,6 +101,9 @@ function RollingCaoursel({ alignment = "left" }: Props) {
             );
           },
           onLeave() {
+            if (index === carouselItems.length - 1) return;
+
+            onSlideChange(index + 1, carouselItems, itemContentElements);
             gsap.fromTo(
               slide,
               { opacity: 1, yPercent: 0 },
@@ -103,6 +111,9 @@ function RollingCaoursel({ alignment = "left" }: Props) {
             );
           },
           onEnterBack() {
+            if (index === carouselItems.length - 1) return;
+
+            onSlideChange(index, carouselItems, itemContentElements);
             gsap.fromTo(
               slide,
               { opacity: -2, yPercent: -305 },
@@ -112,6 +123,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
           onLeaveBack() {
             if (index === 0) return;
 
+            onSlideChange(index - 1, carouselItems, itemContentElements);
             gsap.fromTo(
               slide,
               { opacity: 1, yPercent: 0 },
@@ -122,7 +134,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
         });
       });
     },
-    { scope: slidesContainerRef }
+    { scope: mainContainerRef }
   );
 
   const startInitialAnimation = () => {
@@ -134,10 +146,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     ScrollTrigger.getById(SCRUB_ANIMATION_TRIGGER_ID)?.kill(true);
   };
 
-  const startScrubbedAnimation = (
-    carouselItems: HTMLDivElement[],
-    itemContentElements: HTMLDivElement[]
-  ) => {
+  const startScrubbedAnimation = (carouselItems: HTMLDivElement[]) => {
     const initialAnimation = gsap.getById(INITIAL_ANIMATION_ID);
 
     // Pause initial animation & rotate path to avoid items jumping to (visual) start
@@ -149,14 +158,12 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     // @TODO: Move animation and onUpdate to the main scroll trigger
     ScrollTrigger.create({
       id: SCRUB_ANIMATION_TRIGGER_ID,
-      trigger: mainContainerRef.current,
+      trigger: carouselContainerRef.current,
       start: "top 10%",
       end: () => getScrollTriggerEnd(),
       // @TODO: Look into delayed scrubbing
       scrub: true,
       animation: createRollingAnimation(carouselItems),
-      onUpdate: (self) =>
-        onScrubAnimationUpdate(self, carouselItems, itemContentElements),
     });
   };
 
@@ -166,20 +173,15 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     return `+=${perElementHeight * (getForSingle ? 1 : carouselItems.length)}`;
   };
 
-  const onScrubAnimationUpdate = (
-    { progress }: ScrollTrigger,
+  const onSlideChange = (
+    newActiveItemIndex: number,
     carouselItems: HTMLDivElement[],
     itemContentElements: HTMLDivElement[]
   ) => {
-    const roundedProgress = Math.round(progress * 100);
-    const range = 100 / itemsCount;
-
-    const activeItemIndex = Math.min(
-      Math.floor(roundedProgress / range),
-      itemsCount - 1
-    );
-
-    if (activeIndexRef.current === activeItemIndex) {
+    if (
+      activeIndexRef.current === newActiveItemIndex ||
+      newActiveItemIndex === carouselItems.length
+    ) {
       return;
     }
 
@@ -192,10 +194,10 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     }
 
     // flip current active to anchor
-    activeIndexRef.current = activeItemIndex;
+    activeIndexRef.current = newActiveItemIndex;
     flipItem(
-      carouselItems[activeItemIndex] as HTMLDivElement,
-      itemContentElements[activeItemIndex] as HTMLDivElement
+      carouselItems[newActiveItemIndex] as HTMLDivElement,
+      itemContentElements[newActiveItemIndex] as HTMLDivElement
     );
   };
 
@@ -251,7 +253,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       },
       ...(withRepeat
         ? {
-            duration: 10,
+            duration: 40,
             repeat: -1,
             id: INITIAL_ANIMATION_ID,
           }
@@ -308,9 +310,9 @@ function RollingCaoursel({ alignment = "left" }: Props) {
   };
 
   return (
-    <div className="rolling-carousel-container">
+    <div className="rolling-carousel-container" ref={mainContainerRef}>
       <div
-        ref={mainContainerRef}
+        ref={carouselContainerRef}
         className={cx("rolling-carousel", {
           "rolling-carousel--left": alignment === "left",
           "rolling-carousel--right": alignment === "right",

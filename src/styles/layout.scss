@@ -23,3 +23,8 @@ body {
   // @TODO: Remove this after adding sections below the rolling carousel
   padding-bottom: 6000px;
 }
+
+::selection {
+  color: $accent-one;
+  background-color: rgba($base-white, 0.1);
+}

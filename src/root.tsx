@@ -7,12 +7,12 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useRouteError,
-} from "@remix-run/react";
+} from '@remix-run/react';
 
-import Nav from "components/nav";
+import Nav from 'components/nav';
 
 // Styles
-import "styles/main.scss";
+import 'styles/main.scss';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -45,7 +45,7 @@ export function ErrorBoundary() {
       <h1>
         {isRouteErrorResponse(error) && error.status === 404
           ? "Sorry, the thing you're looking for isn't here."
-          : "Somthing went wrong here!"}
+          : 'Somthing went wrong here!'}
       </h1>
       <Link to="/">Go home</Link>
     </>

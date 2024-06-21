@@ -1,14 +1,14 @@
-import { useGSAP } from "@gsap/react";
-import cx from "classnames";
-import { Flip } from "gsap/dist/Flip";
-import gsap from "gsap/dist/gsap";
-import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useRef } from "react";
+import { useGSAP } from '@gsap/react';
+import cx from 'classnames';
+import { Flip } from 'gsap/dist/Flip';
+import gsap from 'gsap/dist/gsap';
+import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useRef } from 'react';
 
-import LayoutCircle from "components/svg/layoutCircle";
+import LayoutCircle from 'components/svg/layoutCircle';
 
-import "styles/rolling-carousel.scss";
+import 'styles/rolling-carousel.scss';
 import {
   CAROUSEL_ANCHOR_CLASS,
   CAROUSEL_ANCHOR_SELECTOR,
@@ -32,15 +32,15 @@ import {
   SCRUBBED_ROLLING_ANIMATION_ID,
   SLIDES_ITEM_CONTENT_CLASS,
   SLIDES_ITEM_CONTENT_SELECTOR,
-} from "./constants";
+} from './constants';
 
-if (typeof document !== "undefined") {
+if (typeof document !== 'undefined') {
   gsap.registerPlugin(MotionPathPlugin, useGSAP, ScrollTrigger, Flip);
 }
 
 const itemsCount = carouselItems.length;
 
-function RollingCaoursel({ alignment = "left" }: Props) {
+function RollingCaoursel({ alignment = 'left' }: Props) {
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const carouselContainerRef = useRef<HTMLDivElement>(null);
   const slidesContainerRef = useRef<HTMLDivElement>(null);
@@ -50,7 +50,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     () => {
       // Get elements
       const carouselItems = gsap.utils.toArray(
-        CAROUSEL_ITEM_SELECTOR
+        CAROUSEL_ITEM_SELECTOR,
       ) as HTMLDivElement[];
 
       // Fade items into view
@@ -62,34 +62,34 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       // Main carousel scroll scrubbed animation trigger
       ScrollTrigger.create({
         trigger: carouselContainerRef.current,
-        start: "top 10%",
+        start: 'top 10%',
         end: () => getScrollTriggerEnd(),
         pin: true,
         onEnter: () => startScrubbedAnimation(carouselItems),
         onLeaveBack: startInitialAnimation,
       });
     },
-    { scope: carouselContainerRef }
+    { scope: carouselContainerRef },
   );
 
   useGSAP(
     () => {
-      const defaultProperties = { ease: "power2.inOut", duration: 0.5 };
+      const defaultProperties = { ease: 'power2.inOut', duration: 0.5 };
       const carouselItems = gsap.utils.toArray(
-        CAROUSEL_ITEM_SELECTOR
+        CAROUSEL_ITEM_SELECTOR,
       ) as HTMLDivElement[];
       const itemContentElements = gsap.utils.toArray(
-        CAROUSEL_ITEM_LAYOUT_SELECTOR
+        CAROUSEL_ITEM_LAYOUT_SELECTOR,
       ) as HTMLDivElement[];
       const slides: HTMLDivElement[] = gsap.utils.toArray(
-        SLIDES_ITEM_CONTENT_SELECTOR
+        SLIDES_ITEM_CONTENT_SELECTOR,
       );
 
       gsap.set(slides[0], { opacity: 1 });
       slides.forEach((slide, index) => {
         ScrollTrigger.create({
           trigger: slide.parentNode as HTMLDivElement,
-          start: "top 10%",
+          start: 'top 10%',
           end: () => getScrollTriggerEnd(true),
           pin: true,
           pinSpacing: false,
@@ -102,7 +102,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
             gsap.fromTo(
               slide,
               { opacity: -2, yPercent: 305 },
-              { opacity: 1, yPercent: 0, ...defaultProperties }
+              { opacity: 1, yPercent: 0, ...defaultProperties },
             );
           },
           onLeave() {
@@ -112,7 +112,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
             gsap.fromTo(
               slide,
               { opacity: 1, yPercent: 0 },
-              { opacity: -2, yPercent: -305, ...defaultProperties }
+              { opacity: -2, yPercent: -305, ...defaultProperties },
             );
           },
           onEnterBack() {
@@ -122,7 +122,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
             gsap.fromTo(
               slide,
               { opacity: -2, yPercent: -305 },
-              { opacity: 1, yPercent: 0, ...defaultProperties }
+              { opacity: 1, yPercent: 0, ...defaultProperties },
             );
           },
           onLeaveBack() {
@@ -132,14 +132,14 @@ function RollingCaoursel({ alignment = "left" }: Props) {
             gsap.fromTo(
               slide,
               { opacity: 1, yPercent: 0 },
-              { opacity: -2, yPercent: 305, ...defaultProperties }
+              { opacity: -2, yPercent: 305, ...defaultProperties },
             );
           },
-          animation: gsap.to(slide.parentNode, { yPercent: -10, ease: "none" }),
+          animation: gsap.to(slide.parentNode, { yPercent: -10, ease: 'none' }),
         });
       });
     },
-    { scope: mainContainerRef }
+    { scope: mainContainerRef },
   );
 
   const startInitialAnimation = () => {
@@ -164,7 +164,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     ScrollTrigger.create({
       id: SCRUB_ANIMATION_TRIGGER_ID,
       trigger: carouselContainerRef.current,
-      start: "top 10%",
+      start: 'top 10%',
       end: () => getScrollTriggerEnd(),
       // @TODO: Look into delayed scrubbing
       scrub: true,
@@ -181,7 +181,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
   const onSlideChange = (
     newActiveItemIndex: number,
     carouselItems: HTMLDivElement[],
-    itemContentElements: HTMLDivElement[]
+    itemContentElements: HTMLDivElement[],
   ) => {
     if (
       activeIndexRef.current === newActiveItemIndex ||
@@ -194,7 +194,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     if (activeIndexRef.current !== -1) {
       flipItem(
         carouselItems[activeIndexRef.current],
-        itemContentElements[activeIndexRef.current]
+        itemContentElements[activeIndexRef.current],
       );
     }
 
@@ -202,27 +202,27 @@ function RollingCaoursel({ alignment = "left" }: Props) {
     activeIndexRef.current = newActiveItemIndex;
     flipItem(
       carouselItems[newActiveItemIndex] as HTMLDivElement,
-      itemContentElements[newActiveItemIndex] as HTMLDivElement
+      itemContentElements[newActiveItemIndex] as HTMLDivElement,
     );
   };
 
   const flipItem = (
     activeItem: HTMLDivElement,
-    itemCotnentElement: HTMLDivElement
+    itemCotnentElement: HTMLDivElement,
   ) => {
     if (!activeItem) return;
 
     const anchorElement = document.querySelector(
-      CAROUSEL_ANCHOR_SELECTOR
+      CAROUSEL_ANCHOR_SELECTOR,
     ) as HTMLDivElement;
 
     if (itemCotnentElement) {
       const childElements = itemCotnentElement.querySelectorAll(
-        `${CAROUSEL_GRAPHIC_SELECTOR}, ${CAROUSEL_GRAPHIC_ITEM_SELECTOR}`
+        `${CAROUSEL_GRAPHIC_SELECTOR}, ${CAROUSEL_GRAPHIC_ITEM_SELECTOR}`,
       );
 
       const state = Flip.getState([itemCotnentElement, ...childElements], {
-        props: "opacity, borderColor",
+        props: 'opacity, borderColor',
       });
       (itemCotnentElement.parentNode === anchorElement
         ? activeItem
@@ -232,12 +232,12 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       Flip.from(state, {
         duration: 0.5,
         scale: true,
-        ease: "power1.inOut",
+        ease: 'power1.inOut',
         onStart() {
-          activeItem.style.zIndex = "1";
+          activeItem.style.zIndex = '1';
         },
         onComplete() {
-          activeItem.style.zIndex = "";
+          activeItem.style.zIndex = '';
         },
       });
     }
@@ -245,7 +245,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
 
   const createRollingAnimation = (
     items: HTMLDivElement[],
-    withRepeat = false
+    withRepeat = false,
   ) => {
     const itemsPlacementGap = 1 / itemsCount;
 
@@ -264,8 +264,8 @@ function RollingCaoursel({ alignment = "left" }: Props) {
             id: INITIAL_ANIMATION_ID,
           }
         : { id: SCRUBBED_ROLLING_ANIMATION_ID }),
-      ease: "none",
-      runBackwards: alignment === "left",
+      ease: 'none',
+      runBackwards: alignment === 'left',
     });
   };
 
@@ -276,7 +276,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
           className={cx(
             CAROUSEL_GRAPHIC_CLASS,
             // Avoiding word numbered class to differentitate b/w layout and graphic modifiers
-            `${CAROUSEL_GRAPHIC_CLASS}--${index}`
+            `${CAROUSEL_GRAPHIC_CLASS}--${index}`,
           )}
           key={index}
         >
@@ -315,8 +315,8 @@ function RollingCaoursel({ alignment = "left" }: Props) {
       <div
         ref={carouselContainerRef}
         className={cx(ROLLING_CAROUSEL_CLASS, {
-          [`${ROLLING_CAROUSEL_CLASS}--left`]: alignment === "left",
-          [`${ROLLING_CAROUSEL_CLASS}--right`]: alignment === "right",
+          [`${ROLLING_CAROUSEL_CLASS}--left`]: alignment === 'left',
+          [`${ROLLING_CAROUSEL_CLASS}--right`]: alignment === 'right',
         })}
       >
         <LayoutCircle id={CIRCLE_SVG_ID} pathId={CIRCLE_PATH_ID} />
@@ -338,7 +338,7 @@ function RollingCaoursel({ alignment = "left" }: Props) {
 }
 
 interface Props {
-  alignment?: "left" | "right";
+  alignment?: 'left' | 'right';
 }
 
 export default RollingCaoursel;

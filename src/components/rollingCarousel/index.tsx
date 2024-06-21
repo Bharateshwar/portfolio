@@ -58,9 +58,11 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
   );
 
   const initRollingCarouselAnimation = (carouselItems: HTMLDivElement[]) => {
-    const wrap = gsap.utils.wrap(0, 1);
+    // @TODO: Remove commented code non scrubbed rolling animation is finalized
+    // const wrap = gsap.utils.wrap(0, 1);
     // Animate items along svg path
-    const rollingAnimation = createRollingAnimation(carouselItems);
+    // const rollingAnimation =
+    createRollingAnimation(carouselItems);
 
     // Fade items into view
     gsap.to(carouselItems, { opacity: 1 });
@@ -74,21 +76,21 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
       scrub: true,
       anticipatePin: 0.2,
       // Pause rolling animation onEnter
-      onEnter(self: ScrollTriggerWithOffset) {
-        self.offset = rollingAnimation.progress();
-        // Add self.progress to make sure rollingAnimation progress is synced with scroll trigger and then paused
-        rollingAnimation.progress(self.offset + self.progress).pause();
-      },
-      // Update rolling animation progress on scroll
-      onUpdate(self: ScrollTriggerWithOffset) {
-        self.offset &&
-          rollingAnimation.progress(wrap(self.offset + self.progress));
-      },
-      // Resume rolling animation onLeaveBack
-      onLeaveBack(self: ScrollTriggerWithOffset) {
-        self.offset = undefined;
-        rollingAnimation.play();
-      },
+      // onEnter(self: ScrollTriggerWithOffset) {
+      //   self.offset = rollingAnimation.progress();
+      //   // Add self.progress to make sure rollingAnimation progress is synced with scroll trigger and then paused
+      //   rollingAnimation.progress(self.offset + self.progress).pause();
+      // },
+      // // Update rolling animation progress on scroll
+      // onUpdate(self: ScrollTriggerWithOffset) {
+      //   self.offset &&
+      //     rollingAnimation.progress(wrap(self.offset + self.progress));
+      // },
+      // // Resume rolling animation onLeaveBack
+      // onLeaveBack(self: ScrollTriggerWithOffset) {
+      //   self.offset = undefined;
+      //   rollingAnimation.play();
+      // },
     });
   };
 
@@ -329,7 +331,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
   );
 }
 
-type ScrollTriggerWithOffset = ScrollTrigger & { offset?: number };
+// type ScrollTriggerWithOffset = ScrollTrigger & { offset?: number };
 
 interface Props {
   alignment?: 'left' | 'right';

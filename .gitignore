@@ -21,3 +21,6 @@ build
 !.vscode/settings.json
 !.vscode/extensions.json
 *.code-workspace
+
+# error logs
+yarn-error.log

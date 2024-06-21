@@ -50,17 +50,6 @@
     font-size: 1.25vw;
   }
 
-  .nav__link--resume {
-    order: 2;
-    z-index: 2;
-    background: $base-white;
-    color: $base-black;
-
-    &:hover ~ .nav__link--hire {
-      transform: translateX(21%);
-    }
-  }
-
   .nav__link--hire {
     order: 1;
     z-index: 1;
@@ -70,6 +59,17 @@
     transform: translateX(100%);
 
     &:hover {
+      transform: translateX(21%);
+    }
+  }
+
+  .nav__link--resume {
+    order: 2;
+    z-index: 2;
+    background: $base-white;
+    color: $base-black;
+
+    &:hover ~ .nav__link--hire {
       transform: translateX(21%);
     }
   }

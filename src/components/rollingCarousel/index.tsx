@@ -25,11 +25,9 @@ import {
   CIRCLE_PATH_ID,
   CIRCLE_PATH_SELECTOR,
   CIRCLE_SVG_ID,
-  CIRCLE_SVG_SELECTOR,
   INITIAL_ANIMATION_ID,
   ROLLING_CAROUSEL_CLASS,
-  SCRUB_ANIMATION_TRIGGER_ID,
-  SCRUBBED_ROLLING_ANIMATION_ID,
+  ROLLING_CAROUSEL_SELECTOR,
   SLIDES_ITEM_CONTENT_CLASS,
   SLIDES_ITEM_CONTENT_SELECTOR,
 } from './constants';
@@ -41,11 +39,11 @@ if (typeof document !== 'undefined') {
 const itemsCount = carouselItems.length;
 
 function RollingCaoursel({ alignment = 'left' }: Props) {
+  // ✅ Use mainContainerRef instead of classname with gsap to preserve current instance context
   const mainContainerRef = useRef<HTMLDivElement>(null);
-  const carouselContainerRef = useRef<HTMLDivElement>(null);
-  const slidesContainerRef = useRef<HTMLDivElement>(null);
   const activeIndexRef = useRef(-1);
 
+  // Init gsap aniamtions
   useGSAP(
     () => {
       // Get elements
@@ -53,129 +51,127 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
         CAROUSEL_ITEM_SELECTOR,
       ) as HTMLDivElement[];
 
-      // Fade items into view
-      gsap.to(carouselItems, { opacity: 1 });
-
-      // Animate items along svg path
-      createRollingAnimation(carouselItems, true);
-
-      // Main carousel scroll scrubbed animation trigger
-      ScrollTrigger.create({
-        trigger: carouselContainerRef.current,
-        start: 'top 10%',
-        end: () => getScrollTriggerEnd(),
-        pin: true,
-        onEnter: () => startScrubbedAnimation(carouselItems),
-        onLeaveBack: startInitialAnimation,
-      });
-    },
-    { scope: carouselContainerRef },
-  );
-
-  useGSAP(
-    () => {
-      const defaultProperties = { ease: 'power2.inOut', duration: 0.5 };
-      const carouselItems = gsap.utils.toArray(
-        CAROUSEL_ITEM_SELECTOR,
-      ) as HTMLDivElement[];
-      const itemContentElements = gsap.utils.toArray(
-        CAROUSEL_ITEM_LAYOUT_SELECTOR,
-      ) as HTMLDivElement[];
-      const slides: HTMLDivElement[] = gsap.utils.toArray(
-        SLIDES_ITEM_CONTENT_SELECTOR,
-      );
-
-      gsap.set(slides[0], { opacity: 1 });
-      slides.forEach((slide, index) => {
-        ScrollTrigger.create({
-          trigger: slide.parentNode as HTMLDivElement,
-          start: 'top 10%',
-          end: () => getScrollTriggerEnd(true),
-          pin: true,
-          pinSpacing: false,
-          scrub: true,
-          onEnter() {
-            onSlideChange(index, carouselItems, itemContentElements);
-
-            if (index === 0) return;
-
-            gsap.fromTo(
-              slide,
-              { opacity: -2, yPercent: 305 },
-              { opacity: 1, yPercent: 0, ...defaultProperties },
-            );
-          },
-          onLeave() {
-            if (index === carouselItems.length - 1) return;
-
-            onSlideChange(index + 1, carouselItems, itemContentElements);
-            gsap.fromTo(
-              slide,
-              { opacity: 1, yPercent: 0 },
-              { opacity: -2, yPercent: -305, ...defaultProperties },
-            );
-          },
-          onEnterBack() {
-            if (index === carouselItems.length - 1) return;
-
-            onSlideChange(index, carouselItems, itemContentElements);
-            gsap.fromTo(
-              slide,
-              { opacity: -2, yPercent: -305 },
-              { opacity: 1, yPercent: 0, ...defaultProperties },
-            );
-          },
-          onLeaveBack() {
-            if (index === 0) return;
-
-            onSlideChange(index - 1, carouselItems, itemContentElements);
-            gsap.fromTo(
-              slide,
-              { opacity: 1, yPercent: 0 },
-              { opacity: -2, yPercent: 305, ...defaultProperties },
-            );
-          },
-          animation: gsap.to(slide.parentNode, { yPercent: -10, ease: 'none' }),
-        });
-      });
+      initRollingCarouselAnimation(carouselItems);
+      initSlidesAnimation(carouselItems);
     },
     { scope: mainContainerRef },
   );
 
-  const startInitialAnimation = () => {
-    // @TODO: Handle scrubbed complete
-    gsap.set(CIRCLE_SVG_SELECTOR, {
-      rotate: 0,
-    });
-    gsap.getById(INITIAL_ANIMATION_ID).play();
-    ScrollTrigger.getById(SCRUB_ANIMATION_TRIGGER_ID)?.kill(true);
-  };
+  const initRollingCarouselAnimation = (carouselItems: HTMLDivElement[]) => {
+    const wrap = gsap.utils.wrap(0, 1);
+    // Animate items along svg path
+    const rollingAnimation = createRollingAnimation(carouselItems);
 
-  const startScrubbedAnimation = (carouselItems: HTMLDivElement[]) => {
-    const initialAnimation = gsap.getById(INITIAL_ANIMATION_ID);
+    // Fade items into view
+    gsap.to(carouselItems, { opacity: 1 });
 
-    // Pause initial animation & rotate path to avoid items jumping to (visual) start
-    initialAnimation.pause();
-    gsap.set(CIRCLE_SVG_SELECTOR, {
-      rotate: initialAnimation.progress() * 360,
-    });
-
-    // @TODO: Move animation and onUpdate to the main scroll trigger
+    // Main carousel scroll scrubbed animation trigger
     ScrollTrigger.create({
-      id: SCRUB_ANIMATION_TRIGGER_ID,
-      trigger: carouselContainerRef.current,
+      trigger: ROLLING_CAROUSEL_SELECTOR,
       start: 'top 10%',
       end: () => getScrollTriggerEnd(),
-      // @TODO: Look into delayed scrubbing
+      pin: true,
       scrub: true,
-      animation: createRollingAnimation(carouselItems),
+      anticipatePin: 0.2,
+      // Pause rolling animation onEnter
+      onEnter(self: ScrollTriggerWithOffset) {
+        self.offset = rollingAnimation.progress();
+        // Add self.progress to make sure rollingAnimation progress is synced with scroll trigger and then paused
+        rollingAnimation.progress(self.offset + self.progress).pause();
+      },
+      // Update rolling animation progress on scroll
+      onUpdate(self: ScrollTriggerWithOffset) {
+        self.offset &&
+          rollingAnimation.progress(wrap(self.offset + self.progress));
+      },
+      // Resume rolling animation onLeaveBack
+      onLeaveBack(self: ScrollTriggerWithOffset) {
+        self.offset = undefined;
+        rollingAnimation.play();
+      },
     });
   };
 
-  const getScrollTriggerEnd = (getForSingle = false) => {
+  const initSlidesAnimation = (carouselItems: HTMLDivElement[]) => {
+    const SLIDE_Y_OFFSET = 305;
+    // Get elements
+    const defaultProperties = { ease: 'power2.inOut', duration: 0.5 };
+    const rollingLayoutElements = gsap.utils.toArray(
+      CAROUSEL_ITEM_LAYOUT_SELECTOR,
+    ) as HTMLDivElement[];
+    const slides: HTMLDivElement[] = gsap.utils.toArray(
+      SLIDES_ITEM_CONTENT_SELECTOR,
+    );
+
+    // Set first slide to visible
+    gsap.set(slides[0], { opacity: 1 });
+
+    // Handle slide and  carousel item transitions on scroll
+    // Note: Animation to -2 opacity to double the time it takes to animate
+    slides.forEach((slide, index) => {
+      ScrollTrigger.create({
+        trigger: slide.parentNode as HTMLDivElement,
+        start: 'top 10%',
+        end: () => getScrollTriggerEnd(true),
+        pin: true,
+        pinSpacing: false,
+        scrub: true,
+        anticipatePin: index === 0 ? 0.4 : undefined,
+        onEnter() {
+          onSlideChange(index, carouselItems, rollingLayoutElements);
+
+          // First slide is already visible, so don't animate it
+          if (index === 0) return;
+
+          gsap.fromTo(
+            slide,
+            { opacity: -2, yPercent: SLIDE_Y_OFFSET },
+            { opacity: 1, yPercent: 0, ...defaultProperties },
+          );
+        },
+        onLeave() {
+          // Last slide needs to stay visible, so don't animate it onLeave
+          if (index === itemsCount - 1) return;
+
+          onSlideChange(index + 1, carouselItems, rollingLayoutElements);
+          gsap.fromTo(
+            slide,
+            { opacity: 1, yPercent: 0 },
+            { opacity: -2, yPercent: -SLIDE_Y_OFFSET, ...defaultProperties },
+          );
+        },
+        onEnterBack() {
+          // Last slide is already visible, so don't animate it onEnterBack
+          if (index === itemsCount - 1) return;
+
+          onSlideChange(index, carouselItems, rollingLayoutElements);
+          gsap.fromTo(
+            slide,
+            { opacity: -2, yPercent: -SLIDE_Y_OFFSET },
+            { opacity: 1, yPercent: 0, ...defaultProperties },
+          );
+        },
+        onLeaveBack() {
+          // First slide and carousel item need to stay visible, so don't animate them onLeaveBack
+          if (index === 0) return;
+
+          onSlideChange(index - 1, carouselItems, rollingLayoutElements);
+          gsap.fromTo(
+            slide,
+            { opacity: 1, yPercent: 0 },
+            { opacity: -2, yPercent: SLIDE_Y_OFFSET, ...defaultProperties },
+          );
+        },
+        // Move slide.parentNode slightly to subtle scroll movement
+        animation: gsap.to(slide.parentNode, { yPercent: -10, ease: 'none' }),
+      });
+    });
+  };
+
+  const getScrollTriggerEnd = (getForSingleItem = false) => {
     const perElementHeight = Math.max(window.innerHeight, 500);
 
-    return `+=${perElementHeight * (getForSingle ? 1 : carouselItems.length)}`;
+    return `+=${perElementHeight * (getForSingleItem ? 1 : itemsCount)}`;
   };
 
   const onSlideChange = (
@@ -185,12 +181,12 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
   ) => {
     if (
       activeIndexRef.current === newActiveItemIndex ||
-      newActiveItemIndex === carouselItems.length
+      newActiveItemIndex === itemsCount
     ) {
       return;
     }
 
-    // reset last active
+    // flip last active to original parent
     if (activeIndexRef.current !== -1) {
       flipItem(
         carouselItems[activeIndexRef.current],
@@ -221,14 +217,18 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
         `${CAROUSEL_GRAPHIC_SELECTOR}, ${CAROUSEL_GRAPHIC_ITEM_SELECTOR}`,
       );
 
+      // Get current state
       const state = Flip.getState([itemCotnentElement, ...childElements], {
         props: 'opacity, borderColor',
       });
+
+      // Switch parent
       (itemCotnentElement.parentNode === anchorElement
         ? activeItem
         : anchorElement
       ).appendChild(itemCotnentElement);
 
+      // Flip parent switch
       Flip.from(state, {
         duration: 0.5,
         scale: true,
@@ -243,10 +243,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
     }
   };
 
-  const createRollingAnimation = (
-    items: HTMLDivElement[],
-    withRepeat = false,
-  ) => {
+  const createRollingAnimation = (items: HTMLDivElement[]) => {
     const itemsPlacementGap = 1 / itemsCount;
 
     return gsap.to(items, {
@@ -257,13 +254,9 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
         start: (index: number) => index * itemsPlacementGap,
         end: (index: number) => index * itemsPlacementGap + 1,
       },
-      ...(withRepeat
-        ? {
-            duration: 40,
-            repeat: -1,
-            id: INITIAL_ANIMATION_ID,
-          }
-        : { id: SCRUBBED_ROLLING_ANIMATION_ID }),
+      duration: 50,
+      repeat: -1,
+      id: INITIAL_ANIMATION_ID,
       ease: 'none',
       runBackwards: alignment === 'left',
     });
@@ -313,7 +306,6 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
   return (
     <div className="rolling-carousel-container" ref={mainContainerRef}>
       <div
-        ref={carouselContainerRef}
         className={cx(ROLLING_CAROUSEL_CLASS, {
           [`${ROLLING_CAROUSEL_CLASS}--left`]: alignment === 'left',
           [`${ROLLING_CAROUSEL_CLASS}--right`]: alignment === 'right',
@@ -323,7 +315,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
         <div className={CAROUSEL_ANCHOR_CLASS}></div>
         {renderCarouselItems()}
       </div>
-      <div className="slides" ref={slidesContainerRef}>
+      <div className="slides">
         {carouselItems.map(({ title, description }, index) => (
           <div className="slides__item" key={index}>
             <div className={SLIDES_ITEM_CONTENT_CLASS}>
@@ -336,6 +328,8 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
     </div>
   );
 }
+
+type ScrollTriggerWithOffset = ScrollTrigger & { offset?: number };
 
 interface Props {
   alignment?: 'left' | 'right';

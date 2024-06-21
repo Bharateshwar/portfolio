@@ -62,6 +62,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
     // const wrap = gsap.utils.wrap(0, 1);
     // Animate items along svg path
     // const rollingAnimation =
+    // @TODO: Pause animation if out of view
     createRollingAnimation(carouselItems);
 
     // Fade items into view

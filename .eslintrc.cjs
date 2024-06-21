@@ -28,7 +28,7 @@ module.exports = {
     // React
     {
       files: ["**/*.{js,jsx,ts,tsx}"],
-      plugins: ["react", "jsx-a11y"],
+      plugins: ["react", "jsx-a11y", "import"],
       extends: [
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
@@ -45,7 +45,8 @@ module.exports = {
           { name: "NavLink", linkAttribute: "to" },
         ],
         "import/resolver": {
-          typescript: {},
+          typescript: true,
+          node: true,
         },
       },
     },
@@ -71,6 +72,19 @@ module.exports = {
         "plugin:import/recommended",
         "plugin:import/typescript",
       ],
+      rules: {
+        "import/order": [
+          "error",
+          {
+            groups: [["external", "builtin"], "internal"],
+            "newlines-between": "always",
+            alphabetize: {
+              order: "asc",
+              caseInsensitive: true,
+            },
+          },
+        ],
+      },
     },
 
     // Node

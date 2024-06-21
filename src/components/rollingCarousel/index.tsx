@@ -1,36 +1,37 @@
-import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import cx from "classnames";
 import { Flip } from "gsap/dist/Flip";
 import gsap from "gsap/dist/gsap";
-import cx from "classnames";
+import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useRef } from "react";
 
 import LayoutCircle from "components/svg/layoutCircle";
+
 import "styles/rolling-carousel.scss";
 import {
+  CAROUSEL_ANCHOR_CLASS,
+  CAROUSEL_ANCHOR_SELECTOR,
+  CAROUSEL_GRAPHIC_CLASS,
+  CAROUSEL_GRAPHIC_ITEM_CLASS,
+  CAROUSEL_GRAPHIC_ITEM_SELECTOR,
+  CAROUSEL_GRAPHIC_SELECTOR,
   CAROUSEL_ITEM_CLASS,
-  CAROUSEL_ITEM_SELECTOR,
   CAROUSEL_ITEM_LAYOUT_CLASS,
   CAROUSEL_ITEM_LAYOUT_SELECTOR,
+  CAROUSEL_ITEM_SELECTOR,
+  CarouselItemGraphic,
+  carouselItems,
   CIRCLE_PATH_ID,
   CIRCLE_PATH_SELECTOR,
   CIRCLE_SVG_ID,
   CIRCLE_SVG_SELECTOR,
   INITIAL_ANIMATION_ID,
-  SCRUBBED_ROLLING_ANIMATION_ID,
-  SCRUB_ANIMATION_TRIGGER_ID,
-  CAROUSEL_ANCHOR_CLASS,
-  CAROUSEL_ANCHOR_SELECTOR,
-  carouselItems,
-  CarouselItemGraphic,
-  SLIDES_ITEM_CONTENT_SELECTOR,
-  SLIDES_ITEM_CONTENT_CLASS,
-  CAROUSEL_GRAPHIC_CLASS,
-  CAROUSEL_GRAPHIC_SELECTOR,
-  CAROUSEL_GRAPHIC_ITEM_CLASS,
-  CAROUSEL_GRAPHIC_ITEM_SELECTOR,
   ROLLING_CAROUSEL_CLASS,
+  SCRUB_ANIMATION_TRIGGER_ID,
+  SCRUBBED_ROLLING_ANIMATION_ID,
+  SLIDES_ITEM_CONTENT_CLASS,
+  SLIDES_ITEM_CONTENT_SELECTOR,
 } from "./constants";
 
 if (typeof document !== "undefined") {

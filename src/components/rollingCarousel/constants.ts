@@ -1,12 +1,12 @@
 export const INITIAL_ANIMATION_ID = 'intial-rolling-animation';
-export const SCRUBBED_ROLLING_ANIMATION_ID = 'scrubbed-rolling-animation';
 export const CIRCLE_SVG_ID = 'layout-circle-svg';
-export const CIRCLE_SVG_SELECTOR = `#${CIRCLE_SVG_ID}`;
 
 export const CIRCLE_PATH_ID = 'layout-circle-path';
 export const CIRCLE_PATH_SELECTOR = `#${CIRCLE_PATH_ID}`;
 
 export const ROLLING_CAROUSEL_CLASS = 'rolling-carousel';
+export const ROLLING_CAROUSEL_SELECTOR = `.${ROLLING_CAROUSEL_CLASS}`;
+
 export const CAROUSEL_ITEM_CLASS = `${ROLLING_CAROUSEL_CLASS}__item`;
 export const CAROUSEL_ITEM_SELECTOR = `.${CAROUSEL_ITEM_CLASS}`;
 
@@ -21,8 +21,6 @@ export const CAROUSEL_GRAPHIC_ITEM_SELECTOR = `.${CAROUSEL_GRAPHIC_ITEM_CLASS}`;
 
 export const CAROUSEL_ANCHOR_CLASS = `${ROLLING_CAROUSEL_CLASS}__anchor`;
 export const CAROUSEL_ANCHOR_SELECTOR = `.${CAROUSEL_ANCHOR_CLASS}`;
-
-export const SCRUB_ANIMATION_TRIGGER_ID = 'scrub-trigger';
 
 export const SLIDES_ITEM_CONTENT_CLASS = 'slides__item__content';
 export const SLIDES_ITEM_CONTENT_SELECTOR = `.${SLIDES_ITEM_CONTENT_CLASS}`;

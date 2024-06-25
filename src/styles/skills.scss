@@ -1,0 +1,29 @@
+@import 'variables';
+
+.skills-section {
+  min-height: 100dvh;
+  overflow: clip;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5vw;
+}
+
+.skill-item {
+  &__logo {
+    height: 3vw;
+    color: $base-white;
+    padding: 1vw;
+    box-sizing: content-box;
+    background: rgba($base-black, 0.2);
+    backdrop-filter: blur(5px);
+    width: max-content;
+    border-radius: 0.75vw;
+
+    svg {
+      height: 100%;
+      width: auto;
+    }
+  }
+}

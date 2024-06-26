@@ -76,11 +76,6 @@ const ROW_ONE: SkillDataRow = [
         logo: WebflowLogo,
         link: 'https://www.webflow.com/',
       },
-      {
-        name: 'Webpack',
-        logo: WebpackLogo,
-        link: 'https://webpack.js.org/',
-      },
     ],
   },
 ];
@@ -192,6 +187,11 @@ const ROW_FOUR: SkillDataRow = [
       },
       { name: 'Lodash', logo: LodashLogo, link: 'https://lodash.com/' },
       { name: 'Vite', logo: ViteLogo, link: 'https://vitejs.dev/' },
+      {
+        name: 'Webpack',
+        logo: WebpackLogo,
+        link: 'https://webpack.js.org/',
+      },
     ],
   },
 ];

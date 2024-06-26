@@ -1,17 +1,10 @@
 function NpmLogo() {
   return (
-    <svg
-      height="32"
-      width="32"
-      viewBox="0 0 700 700"
-      fill="rgb(203, 0, 0)"
-      aria-hidden="true"
-    >
-      <polygon fill="rgb(203, 0, 0)" points="0,700 700,700 700,0 0,0"></polygon>
-      <polygon
-        fill="#ffffff"
-        points="150,550 350,550 350,250 450,250 450,550 550,550 550,150 150,150 "
-      ></polygon>
+    <svg viewBox="0 0 780 250" aria-hidden="true">
+      <path
+        fill="rgb(203, 0, 0)"
+        d="M240,250h100v-50h100V0H240V250z M340,50h50v100h-50V50z M480,0v200h100V50h50v150h50V50h50v150h50V0H480z M0,200h100V50h50v150h50V0H0V200z"
+      ></path>
     </svg>
   );
 }

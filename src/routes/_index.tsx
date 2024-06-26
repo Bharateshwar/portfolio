@@ -18,8 +18,8 @@ export default function Index() {
   return (
     <>
       <Hero />
-      <RollingCaoursel />
       <Skills />
+      <RollingCaoursel />
     </>
   );
 }

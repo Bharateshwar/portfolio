@@ -124,16 +124,6 @@ const ROW_TWO: SkillDataRow = [
         logo: ReactHookFormLogo,
         link: 'https://react-hook-form.com/',
       },
-      {
-        name: 'Redux',
-        logo: ReduxLogo,
-        link: 'https://redux.js.org/',
-      },
-      {
-        name: 'Sass',
-        logo: SassLogo,
-        link: 'https://sass-lang.com/',
-      },
     ],
   },
 ];
@@ -163,6 +153,16 @@ const ROW_THREE: SkillDataRow = [
         link: 'https://graphql.org/',
       },
       { name: 'Remix', logo: RemixLogo, link: 'https://remix.run/' },
+      {
+        name: 'Sass',
+        logo: SassLogo,
+        link: 'https://sass-lang.com/',
+      },
+      {
+        name: 'Redux',
+        logo: ReduxLogo,
+        link: 'https://redux.js.org/',
+      },
     ],
   },
 ];

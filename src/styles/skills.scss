@@ -1,23 +1,39 @@
 @import 'variables';
 
 .skills-section {
-  min-height: 100dvh;
+  min-height: 150dvh;
   overflow: clip;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 5vw;
+  position: relative;
+  margin: 10vw 0;
+
+  &::before {
+    position: absolute;
+    width: 100%;
+    height: 10vw;
+    content: ' ';
+    z-index: 1000;
+    background-image: linear-gradient(
+      to top,
+      rgba($base-black, 0.1),
+      ($base-black) 100%
+    );
+  }
 }
 
 .skill-item {
+  opacity: 0;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  transform: translateY(-200%);
+  z-index: -1;
+
   &__logo {
     height: 3vw;
     color: $base-white;
     padding: 1vw;
     box-sizing: content-box;
     background: rgba($base-black, 0.2);
-    backdrop-filter: blur(5px);
     width: max-content;
     border-radius: 0.75vw;
 

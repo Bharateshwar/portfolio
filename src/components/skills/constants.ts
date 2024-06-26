@@ -28,11 +28,28 @@ import WebflowLogo from 'components/svg/webflowLogo';
 import WebpackLogo from 'components/svg/webpackLogo';
 import YarnLogo from 'components/svg/yarnLogo';
 
+const LOGO_SCALE = {
+  MEDIUM: 0.75,
+  LARGE: 1.5,
+  SMALL: 0.5,
+  EXTRA_SMALL: 0.3,
+};
+
 export const SKILLS_DATA = [
-  { name: 'Ant Design', logo: AntdLogo, link: 'https://ant.design' },
+  {
+    name: 'Ant Design',
+    logo: AntdLogo,
+    link: 'https://ant.design',
+    scale: LOGO_SCALE.MEDIUM,
+  },
   { name: 'Astro', logo: AstroLogo, link: 'https://astro.build/' },
   { name: 'BEM', logo: BemLogo, link: 'https://getbem.com/' },
-  { name: 'Bubble', logo: BubbleLogo, link: 'https://bubble.io/' },
+  {
+    name: 'Bubble',
+    logo: BubbleLogo,
+    link: 'https://bubble.io/',
+    scale: LOGO_SCALE.EXTRA_SMALL,
+  },
   {
     name: 'CSS',
     logo: CssLogo,
@@ -42,11 +59,13 @@ export const SKILLS_DATA = [
     name: 'Docker',
     logo: DockerLogo,
     link: 'https://www.docker.com/',
+    scale: LOGO_SCALE.SMALL,
   },
   {
     name: 'DotLottie',
     logo: DotLottieLogo,
     link: 'https://dotlottie.io/',
+    scale: LOGO_SCALE.SMALL,
   },
   {
     name: 'Gatsby',
@@ -57,21 +76,25 @@ export const SKILLS_DATA = [
     name: 'GraphQL',
     logo: GraphQlLogo,
     link: 'https://graphql.org/',
+    scale: LOGO_SCALE.SMALL,
   },
   {
     name: 'GSAP',
     logo: GsapLogo,
     link: 'https://gsap.com',
+    scale: LOGO_SCALE.LARGE,
   },
   {
     name: 'HTML',
     logo: HtmlLogo,
     link: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
+    scale: LOGO_SCALE.LARGE,
   },
   {
     name: 'jQuery',
     logo: JQueryLogo,
     link: 'https://jquery.com/',
+    scale: LOGO_SCALE.EXTRA_SMALL,
   },
   {
     name: 'JavaScript',
@@ -87,11 +110,13 @@ export const SKILLS_DATA = [
     name: 'NextJS',
     logo: NextJsLogo,
     link: 'https://nextjs.org/',
+    scale: LOGO_SCALE.LARGE,
   },
   {
     name: 'NPM',
     logo: NpmLogo,
     link: 'https://www.npmjs.com/',
+    scale: LOGO_SCALE.SMALL,
   },
   {
     name: 'React Hook Form',
@@ -102,11 +127,13 @@ export const SKILLS_DATA = [
     name: 'React',
     logo: ReactLogo,
     link: 'https://react.dev/',
+    scale: LOGO_SCALE.LARGE,
   },
   {
     name: 'Redux',
     logo: ReduxLogo,
     link: 'https://redux.js.org/',
+    scale: LOGO_SCALE.LARGE,
   },
   {
     name: 'Sass',
@@ -117,16 +144,19 @@ export const SKILLS_DATA = [
     name: 'Storybook',
     logo: StorybookLogo,
     link: 'https://storybook.js.org/',
+    scale: LOGO_SCALE.EXTRA_SMALL,
   },
   {
     name: 'Tailwind',
     logo: TailwindLogo,
     link: 'https://tailwindcss.com/',
+    scale: LOGO_SCALE.EXTRA_SMALL,
   },
   {
     name: 'TypeScript',
     logo: TsLogo,
     link: 'https://www.typescriptlang.org/',
+    scale: LOGO_SCALE.LARGE,
   },
   {
     name: 'Vue',
@@ -137,18 +167,24 @@ export const SKILLS_DATA = [
     name: 'Webflow',
     logo: WebflowLogo,
     link: 'https://www.webflow.com/',
+    scale: LOGO_SCALE.SMALL,
   },
   {
     name: 'Webpack',
     logo: WebpackLogo,
     link: 'https://webpack.js.org/',
+    scale: LOGO_SCALE.SMALL,
   },
-
   {
     name: 'Yarn',
     logo: YarnLogo,
     link: 'https://yarnpkg.com/',
   },
   { name: 'Lodash', logo: LodashLogo, link: 'https://lodash.com/' },
-  { name: 'Vite', logo: ViteLogo, link: 'https://vitejs.dev/' },
+  {
+    name: 'Vite',
+    logo: ViteLogo,
+    link: 'https://vitejs.dev/',
+    scale: LOGO_SCALE.SMALL,
+  },
 ];

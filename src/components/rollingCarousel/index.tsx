@@ -71,6 +71,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
     // Main carousel scroll scrubbed animation trigger
     ScrollTrigger.create({
       trigger: ROLLING_CAROUSEL_SELECTOR,
+      // @TODO: Make circle & slides pin when at center, there are alignment issues coz of 10% & padding bottom at slide items
       start: 'top 10%',
       end: () => getScrollTriggerEnd(),
       pin: true,

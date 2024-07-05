@@ -1,15 +1,32 @@
 import { useGSAP } from '@gsap/react';
+import gsap from 'gsap/dist/gsap';
 import { useRef } from 'react';
 
 import 'styles/skills.scss';
-import { SKILL_DATA_ROWS, SkillItem, SkillList } from './constants';
+import { SKILL_DATA_ROWS, SkillDataRow, SkillItem } from './constants';
 
 function Skills() {
   const mainContainerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      // @TODO: Add animation logic
+      const rows: HTMLDivElement[] = gsap.utils.toArray('.skills-row');
+
+      rows.forEach((row, index) => {
+        const width = row.offsetWidth;
+        const widthToScroll =
+          width - (mainContainerRef.current?.offsetWidth ?? 0);
+
+        if (widthToScroll > 0) {
+          gsap.to(row, {
+            x: (index % 2 === 0 ? -1 : 1) * widthToScroll,
+            ease: 'none',
+            duration: 10,
+            yoyo: true,
+            repeat: -1,
+          });
+        }
+      });
     },
     { scope: mainContainerRef },
   );
@@ -25,7 +42,7 @@ function Skills() {
       </li>
     ));
 
-  const renderSkillList = ({ category, items }: SkillList) => {
+  const renderSkillList = ({ category, items }: SkillDataRow) => {
     return (
       <div className="skills-list" key={category}>
         <p className="skills-list__title">{category}</p>
@@ -36,9 +53,9 @@ function Skills() {
 
   return (
     <div className="skills-section" ref={mainContainerRef}>
-      {SKILL_DATA_ROWS.map((dataRow, index) => (
-        <div className="skills-row" key={index}>
-          {dataRow.map(renderSkillList)}
+      {SKILL_DATA_ROWS.map((dataRow) => (
+        <div className="skills-row" key={dataRow.category}>
+          {renderSkillList(dataRow)}
         </div>
       ))}
     </div>

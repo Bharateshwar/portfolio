@@ -1,24 +1,24 @@
 @import 'variables';
 
 .skills-section {
-  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5.55vw;
+  margin: 9.027vw 0;
 }
 
 .skills-row {
-  margin: 9.027vw 0;
   display: flex;
   gap: 2vw;
+  width: max-content;
 
   &:nth-child(even) {
+    align-self: flex-end;
+
     &,
     .skills-list,
     ul {
       flex-direction: row-reverse;
-    }
-
-    .skills-list__title {
-      padding-right: 10vw;
-      padding-left: 0;
     }
   }
 }
@@ -36,14 +36,13 @@
 
   &__title {
     flex-shrink: 0;
-    padding-left: 10vw;
   }
 
   &__item {
     display: inline;
 
     &__logo {
-      height: 2.083vw;
+      height: 1.75vw;
       color: $base-white;
 
       svg {

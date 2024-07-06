@@ -3,6 +3,7 @@ import type { MetaFunction } from '@remix-run/node';
 import Hero from 'components/hero';
 import RollingCaoursel from 'components/rollingCarousel';
 import Skills from 'components/skills';
+import WorkLocations from 'components/workLocations';
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,6 +21,7 @@ export default function Index() {
       <Hero />
       <RollingCaoursel />
       <Skills />
+      <WorkLocations />
     </>
   );
 }

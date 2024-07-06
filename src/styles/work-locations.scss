@@ -1,0 +1,58 @@
+@import 'variables';
+
+.work-locations-container {
+  display: flex;
+  margin: 11.111vw 0;
+  align-items: center;
+  gap: 5.556vw;
+  position: relative;
+  //   @TODO: Explore gradient bg options
+  //   background: linear-gradient(270deg, $base-black 24.5%, $gray-dark 100%);
+
+  h2 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-locations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex: 1;
+    text-align: center;
+    align-items: center;
+    row-gap: 11.111vw;
+
+    svg {
+      position: absolute;
+      z-index: -1;
+      top: -5vw;
+      right: -25vw;
+      width: 60vw;
+      height: auto;
+      opacity: 0;
+      filter: blur(5px);
+      transition:
+        opacity 0.3s ease-in-out,
+        right 0.3s ease-in-out;
+    }
+
+    &__location {
+      p {
+        transition: scale 0.3s ease-in-out;
+      }
+
+      &:hover {
+        p {
+          color: $base-white;
+          scale: 0.95;
+          cursor: default;
+        }
+
+        svg {
+          opacity: 0.05;
+          right: -5vw;
+        }
+      }
+    }
+  }
+}

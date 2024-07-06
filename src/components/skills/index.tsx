@@ -18,6 +18,7 @@ function Skills() {
           width - (mainContainerRef.current?.offsetWidth ?? 0);
 
         if (widthToScroll > 0) {
+          // @TODO: Pause on hover or show a button within overlay to open skills section
           gsap.to(row, {
             x: (index % 2 === 0 ? -1 : 1) * widthToScroll,
             ease: 'none',

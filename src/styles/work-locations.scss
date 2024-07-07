@@ -1,13 +1,17 @@
 @import 'variables';
+@import 'utils';
 
 .work-locations-container {
+  min-height: 100vh;
   display: flex;
   margin: 11.111vw 0;
   align-items: center;
   gap: 5.556vw;
   position: relative;
-  //   @TODO: Explore gradient bg options
-  //   background: linear-gradient(270deg, $base-black 24.5%, $gray-dark 100%);
+  border-top: pxToVw(2) solid $gray-dark;
+  background: linear-gradient(270deg, $base-black 0%, $gray-dark 100%);
+  padding: 0 3.472vw;
+  overflow: hidden;
 
   h2 {
     display: flex;
@@ -24,7 +28,7 @@
 
     svg {
       position: absolute;
-      z-index: -1;
+      pointer-events: none;
       top: -5vw;
       right: -25vw;
       width: 60vw;
@@ -38,13 +42,15 @@
 
     &__location {
       p {
-        transition: scale 0.3s ease-in-out;
+        transition:
+          scale 0.3s ease-in-out,
+          color 0.3s ease-in-out;
       }
 
       &:hover {
         p {
           color: $base-white;
-          scale: 0.95;
+          scale: 0.9;
           cursor: default;
         }
 

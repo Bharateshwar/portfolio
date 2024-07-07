@@ -1,5 +1,6 @@
 import type { MetaFunction } from '@remix-run/node';
 
+import Container from 'components/container';
 import Hero from 'components/hero';
 import RollingCaoursel from 'components/rollingCarousel';
 import Skills from 'components/skills';
@@ -18,9 +19,11 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <>
-      <Hero />
-      <RollingCaoursel />
-      <Skills />
+      <Container>
+        <Hero />
+        <RollingCaoursel />
+        <Skills />
+      </Container>
       <WorkLocations />
     </>
   );

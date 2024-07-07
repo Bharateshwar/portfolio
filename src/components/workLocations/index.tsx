@@ -1,3 +1,4 @@
+import Container from 'components/container';
 import FranceFlag from 'components/svg/franceFlag';
 import IndiaFlag from 'components/svg/indiaFlag';
 import SingaporeFlag from 'components/svg/singporeFlag';
@@ -5,6 +6,7 @@ import UnitedKingdomFlag from 'components/svg/unitedKingdomFlag';
 import UsFlag from 'components/svg/UsFlag';
 import 'styles/work-locations.scss';
 
+// @TODO: Decide if its better to write AND MORE as the last option with an animated global map as a background
 const LOCATIONS = [
   { name: 'NEW YORK', flag: UsFlag },
   { name: 'LONDON', flag: UnitedKingdomFlag },
@@ -19,7 +21,7 @@ const LOCATIONS = [
 
 function WorkLocations() {
   return (
-    <div className="work-locations-container">
+    <Container className="work-locations-container">
       <h2 className="h2-large">
         <span>BUILDING</span>
         <span>WITH</span>
@@ -34,7 +36,7 @@ function WorkLocations() {
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   );
 }
 

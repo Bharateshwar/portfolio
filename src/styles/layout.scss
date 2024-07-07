@@ -14,11 +14,15 @@ body {
   background: $base-black;
   font-family: $font-primary;
   margin: auto;
-  padding: 2.778vw 3.472vw;
+  padding: 2.778vw 0;
   letter-spacing: 0.06em;
   line-height: 1.5;
   font-size: 1.111vw;
   overflow-x: clip;
+}
+
+.container {
+  padding: 0 3.472vw;
 }
 
 ::selection {

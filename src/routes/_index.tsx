@@ -4,7 +4,7 @@ import Container from 'components/container';
 import Hero from 'components/hero';
 import RollingCaoursel from 'components/rollingCarousel';
 import Skills from 'components/skills';
-import WorkLocations from 'components/workLocations';
+import WorkSectors from 'components/workSectors';
 
 export const meta: MetaFunction = () => {
   return [
@@ -24,7 +24,7 @@ export default function Index() {
         <RollingCaoursel />
         <Skills />
       </Container>
-      <WorkLocations />
+      <WorkSectors />
     </>
   );
 }

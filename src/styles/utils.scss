@@ -9,5 +9,5 @@
 // @TODO: Uptade all vw values to use this function
 // Converts a pixel value to vw units based on a 1440px wide screen.
 @function pxToVw($px) {
-  @return ($px / 1440) * 100vw;
+  @return calc(($px / 1440)) * 100vw;
 }

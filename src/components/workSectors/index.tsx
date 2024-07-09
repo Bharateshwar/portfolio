@@ -5,7 +5,7 @@ import { SECTORS } from './constants';
 
 function WorkSectors() {
   return (
-    <Container variant="gradient">
+    <Container variant="gradient" isSection>
       {SECTORS.map(({ heading, sectors }, index) => (
         <div className="work-sectors-container" key={index}>
           <h2 className="h2-large">

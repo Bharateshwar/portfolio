@@ -2,7 +2,7 @@ import { Link } from '@remix-run/react';
 
 function Nav() {
   return (
-    <div className="nav">
+    <nav className="nav">
       <div className="nav__top">
         <Link to="/about" className="nav__link">
           About me
@@ -23,7 +23,7 @@ function Nav() {
           Hire me
         </Link>
       </div>
-    </div>
+    </nav>
   );
 }
 

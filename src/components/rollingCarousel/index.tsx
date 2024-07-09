@@ -308,7 +308,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
   };
 
   return (
-    <div className="rolling-carousel-container" ref={mainContainerRef}>
+    <section className="rolling-carousel-container" ref={mainContainerRef}>
       <div
         className={cx(ROLLING_CAROUSEL_CLASS, {
           [`${ROLLING_CAROUSEL_CLASS}--left`]: alignment === 'left',
@@ -329,7 +329,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

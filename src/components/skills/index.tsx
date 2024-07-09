@@ -53,13 +53,13 @@ function Skills() {
   };
 
   return (
-    <div className="skills-section" ref={mainContainerRef}>
+    <section className="skills-section" ref={mainContainerRef}>
       {SKILL_DATA_ROWS.map((dataRow) => (
         <div className="skills-row" key={dataRow.category}>
           {renderSkillList(dataRow)}
         </div>
       ))}
-    </div>
+    </section>
   );
 }
 

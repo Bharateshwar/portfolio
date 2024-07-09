@@ -23,6 +23,16 @@ body {
 
 .container {
   padding: 0 3.472vw;
+  overflow: hidden;
+
+  &--gradient {
+    border-top: pxToVw(3) solid $gray-dark;
+    background: linear-gradient(270deg, $base-black 0%, $gray-dark 100%);
+  }
+
+  &--secondary {
+    background: $base-white;
+  }
 }
 
 ::selection {

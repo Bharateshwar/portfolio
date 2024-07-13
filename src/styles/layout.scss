@@ -32,6 +32,10 @@ body {
   &--secondary {
     background: $base-white;
   }
+
+  &--full-width {
+    padding: 0;
+  }
 }
 
 ::selection {

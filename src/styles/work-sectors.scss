@@ -2,11 +2,16 @@
 @import 'utils';
 
 .work-sectors-container {
-  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
   position: relative;
+  padding-bottom: pxToVw(160);
+
+  &:first-of-type {
+    min-height: 100vh;
+    padding-bottom: 0;
+  }
 
   h2 {
     display: flex;

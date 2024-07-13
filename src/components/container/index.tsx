@@ -1,7 +1,10 @@
 import cx from 'classnames';
-import { ReactNode } from 'react';
+import { ForwardedRef, forwardRef, ReactNode } from 'react';
 
-function Container({ children, className, variant, isSection }: Props) {
+function Container(
+  { children, className, variant, isSection }: Props,
+  ref: ForwardedRef<HTMLDivElement>,
+) {
   const WrapperElement = isSection ? 'section' : 'div';
 
   return (
@@ -10,6 +13,7 @@ function Container({ children, className, variant, isSection }: Props) {
         'container--gradient': variant === 'gradient',
         'container--secondary': variant === 'secondary',
       })}
+      ref={ref}
     >
       {children}
     </WrapperElement>
@@ -23,4 +27,4 @@ interface Props {
   isSection?: boolean;
 }
 
-export default Container;
+export default forwardRef(Container);

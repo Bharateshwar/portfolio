@@ -17,7 +17,7 @@ function WorkSectors() {
         '.work-sectors-container',
       );
 
-      sectorsContainerElements.forEach((sectorsContainerElement) => {
+      sectorsContainerElements.forEach((sectorsContainerElement, index) => {
         const mainTl = gsap.timeline({
           scrollTrigger: {
             trigger: sectorsContainerElement,
@@ -32,7 +32,10 @@ function WorkSectors() {
           { scale: scaleMinValue },
           { scale: 1 },
         );
-        mainTl.to(sectorsContainerElement, { scale: scaleMinValue });
+
+        if (index !== sectorsContainerElements.length - 1) {
+          mainTl.to(sectorsContainerElement, { scale: scaleMinValue });
+        }
       });
     },
     { scope: mainContainerRef },

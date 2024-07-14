@@ -1,3 +1,26 @@
+@mixin primaryTypographyColors {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li::marker {
+    color: $base-white;
+  }
+
+  p,
+  a {
+    color: $gray-light;
+  }
+
+  a:hover {
+    color: $base-white;
+  }
+}
+
+@include primaryTypographyColors();
+
 h1,
 h2,
 h3,
@@ -5,7 +28,6 @@ h4,
 h5,
 h6 {
   font-family: $font-secondary;
-  color: $base-white;
   font-weight: $fw-regular;
   letter-spacing: 0.06em;
   margin: 0;
@@ -34,21 +56,15 @@ h3 {
 }
 
 p {
-  color: $gray-light;
   margin: 0;
   letter-spacing: 0.06em;
 }
 
 a {
   text-decoration: none;
-  color: $gray-light;
   font-style: italic;
   letter-spacing: 0.06em;
   font-family: $font-secondary;
-
-  &:hover {
-    color: $base-white;
-  }
 }
 
 li::marker {
@@ -61,23 +77,29 @@ li::marker {
   letter-spacing: 0.05em;
 }
 
-.container--secondary {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  li::marker {
-    color: $base-black;
+.container {
+  &--secondary {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    li::marker {
+      color: $base-black;
+    }
+
+    p,
+    a {
+      color: $gray-dark;
+    }
+
+    a:hover {
+      color: $base-black;
+    }
   }
 
-  p,
-  a {
-    color: $gray-dark;
-  }
-
-  a:hover {
-    color: $base-black;
+  &--gradient {
+    @include primaryTypographyColors();
   }
 }

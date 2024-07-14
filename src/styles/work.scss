@@ -1,14 +1,15 @@
 @import 'variables';
 @import 'utils';
 
-h2 {
-  text-align: right;
-}
-
 .work-history {
   margin: pxToVw(30) auto pxToVw(160);
 
+  &-heading {
+    text-align: right;
+  }
+
   &__item {
+    width: 100%;
     position: relative;
     border-bottom: pxToVw(1) solid $gray-dark;
     cursor: pointer;
@@ -45,6 +46,14 @@ h2 {
       text-transform: capitalize;
     }
 
+    &__description {
+      position: absolute;
+      top: 50%;
+      right: -60%;
+      width: 60%;
+      transform: translateY(-50%);
+    }
+
     &::after {
       content: '';
       position: absolute;
@@ -57,6 +66,7 @@ h2 {
       transition: top 0.175s linear;
     }
 
+    &--active::after,
     &:hover::after {
       top: 0;
     }

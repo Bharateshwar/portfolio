@@ -5,6 +5,7 @@ import Container from 'components/container';
 import Hero from 'components/hero';
 import RollingCaoursel from 'components/rollingCarousel';
 import Skills from 'components/skills';
+import Work from 'components/work';
 import WorkSectors from 'components/workSectors';
 
 export const meta: MetaFunction = () => {
@@ -25,6 +26,7 @@ export default function Index() {
         <RollingCaoursel />
         <Skills />
       </Container>
+      <Work />
       <Container variant="secondary" fullWidth>
         <BackgroundBreakContainer>
           <WorkSectors />

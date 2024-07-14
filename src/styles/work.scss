@@ -1,0 +1,64 @@
+@import 'variables';
+@import 'utils';
+
+h2 {
+  text-align: right;
+}
+
+.work-history {
+  margin: pxToVw(30) auto pxToVw(160);
+
+  &__item {
+    position: relative;
+    border-bottom: pxToVw(1) solid $gray-dark;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:first-of-type {
+      border-top: pxToVw(1) solid $gray-dark;
+    }
+
+    &__details-container {
+      display: flex;
+      padding-top: pxToVw(22);
+      padding-bottom: pxToVw(22);
+      align-items: center;
+    }
+
+    &__designation,
+    &__employer-name {
+      color: $base-white;
+    }
+
+    &__designation {
+      width: 100%;
+      max-width: pxToVw(500);
+      margin-left: auto;
+    }
+
+    &__period-details {
+      width: 100%;
+      max-width: pxToVw(280);
+    }
+
+    &__duration {
+      text-transform: capitalize;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      background: $base-white;
+      width: 100%;
+      height: 100%;
+      top: -100%;
+      left: 0;
+      mix-blend-mode: difference;
+      transition: top 0.175s linear;
+    }
+
+    &:hover::after {
+      top: 0;
+    }
+  }
+}

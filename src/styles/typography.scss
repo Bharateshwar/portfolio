@@ -33,7 +33,8 @@ h6 {
   margin: 0;
 }
 
-h1 {
+h1,
+h2.h2-extra-large {
   // Extra precision for larger fonts
   font-size: 9.7222vw;
   line-height: 1;
@@ -43,11 +44,11 @@ h2 {
   font-size: 2.778vw;
   line-height: 1.3;
   letter-spacing: -0.02em;
-}
 
-.h2-large {
-  font-size: 4.444vw;
-  letter-spacing: 0.06em;
+  &.h2-large {
+    font-size: 4.444vw;
+    letter-spacing: 0.06em;
+  }
 }
 
 h3 {
@@ -75,6 +76,12 @@ li::marker {
   font-size: 1.528vw;
   line-height: 1.36;
   letter-spacing: 0.05em;
+}
+
+.body-extra-large {
+  font-size: pxToVw(24);
+  line-height: 1.36;
+  letter-spacing: 0.105em;
 }
 
 .container {

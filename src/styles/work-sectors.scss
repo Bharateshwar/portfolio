@@ -4,13 +4,13 @@
 .work-sectors-container {
   display: grid;
   grid-template-columns: 1fr 2fr;
+  column-gap: pxToVw(88);
   align-items: center;
   position: relative;
-  padding-bottom: pxToVw(160);
+  margin-bottom: pxToVw(160);
 
   &:first-of-type {
-    min-height: 100vh;
-    padding-bottom: 0;
+    margin-bottom: 0;
   }
 
   h2 {
@@ -22,43 +22,52 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     text-align: center;
-    row-gap: pxToVw(100);
+    gap: pxToVw(116) pxToVw(35);
+    padding: pxToVw(112.5) pxToVw(54);
+    background: linear-gradient(
+      90deg,
+      rgba($base-black, 0.05) 0,
+      rgba($base-white, 0.05) 100%
+    );
+    border-radius: pxToVw(24);
 
-    svg {
-      position: absolute;
-      pointer-events: none;
-      top: -5vw;
-      right: -25vw;
-      width: 60vw;
-      height: auto;
-      opacity: 0;
-      filter: blur(5px);
-      transition:
-        opacity 0.3s ease-in-out,
-        right 0.3s ease-in-out;
-    }
+    // svg {
+    //   position: absolute;
+    //   pointer-events: none;
+    //   top: -5vw;
+    //   right: -25vw;
+    //   width: 60vw;
+    //   height: auto;
+    //   opacity: 0;
+    //   filter: blur(5px);
+    //   transition:
+    //     opacity 0.3s ease-in-out,
+    //     right 0.3s ease-in-out;
+    // }
 
     &__sector {
-      padding: pxToVw(30);
-
       p {
         transition:
           scale 0.3s ease-in-out,
           color 0.3s ease-in-out;
+        background: $black;
+        border-radius: pxToVw(8);
+        color: $base-white;
+        padding: pxToVw(10);
       }
 
-      &:hover {
-        p {
-          color: $base-white;
-          scale: 0.9;
-          cursor: default;
-        }
+      // @TODO: Remove if no hover is needed
+      // &:hover {
+      //   p {
+      //     scale: 0.9;
+      //     cursor: default;
+      //   }
 
-        svg {
-          opacity: 0.05;
-          right: -5vw;
-        }
-      }
+      //   svg {
+      //     opacity: 0.05;
+      //     right: -5vw;
+      //   }
+      // }
     }
   }
 }

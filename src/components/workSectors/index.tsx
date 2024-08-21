@@ -42,7 +42,7 @@ function WorkSectors() {
   );
 
   return (
-    <Container variant="gradient" isSection ref={mainContainerRef}>
+    <Container isSection ref={mainContainerRef}>
       {SECTORS.map(({ heading, sectors }, index) => (
         <div className="work-sectors-container" key={index}>
           <h2 className="h2-large">
@@ -51,11 +51,12 @@ function WorkSectors() {
             ))}
           </h2>
           <div className="work-sectors">
-            {sectors.map(({ name, flag: Flag }) => (
+            {sectors.map(({ name }) => (
               <div key={name} className="work-sectors__sector">
                 {/* @TODO: Explore styled text instead of normal text */}
                 <p>{name}</p>
-                {Flag && <Flag />}
+                {/* @TODO: Explore hover options  */}
+                {/* {Flag && <Flag />} */}
               </div>
             ))}
           </div>

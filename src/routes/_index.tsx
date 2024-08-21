@@ -1,6 +1,5 @@
 import type { MetaFunction } from '@remix-run/node';
 
-import BackgroundBreakContainer from 'components/BackgroundBreakContainer';
 import Container from 'components/container';
 import Hero from 'components/hero';
 import RollingCaoursel from 'components/rollingCarousel';
@@ -27,11 +26,12 @@ export default function Index() {
         <Skills />
       </Container>
       <Work />
-      <Container variant="secondary" fullWidth>
-        <BackgroundBreakContainer>
-          <WorkSectors />
-        </BackgroundBreakContainer>
-      </Container>
+      {/* @TODO: Implement background break */}
+      {/* <Container variant="secondary" fullWidth>
+        <BackgroundBreakContainer> */}
+      <WorkSectors />
+      {/* </BackgroundBreakContainer>
+      </Container> */}
     </>
   );
 }

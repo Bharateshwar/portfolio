@@ -24,6 +24,7 @@ function Container(
 interface Props {
   children: ReactNode;
   className?: string;
+  // @TODO: Remove variants if not used
   variant?: 'gradient' | 'secondary';
   isSection?: boolean;
   fullWidth?: boolean;

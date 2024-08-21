@@ -29,12 +29,17 @@ function WorkSectors() {
 
         mainTl.fromTo(
           sectorsContainerElement,
-          { scale: scaleMinValue },
+          // Zoom in sectors (except the first one), needs animation added on first to fake the sense of delay
+          { scale: index === 0 ? 1 : scaleMinValue },
           { scale: 1 },
         );
 
+        // Zoom and fade out sectoes (except the last one)
         if (index !== sectorsContainerElements.length - 1) {
-          mainTl.to(sectorsContainerElement, { scale: scaleMinValue });
+          mainTl.to(sectorsContainerElement, {
+            scale: scaleMinValue,
+            opacity: 0.25,
+          });
         }
       });
     },
@@ -42,7 +47,11 @@ function WorkSectors() {
   );
 
   return (
-    <Container isSection ref={mainContainerRef}>
+    <Container
+      isSection
+      ref={mainContainerRef}
+      className="work-sectors-section"
+    >
       {SECTORS.map(({ heading, sectors }, index) => (
         <div className="work-sectors-container" key={index}>
           <h2 className="h2-large">

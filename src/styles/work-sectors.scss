@@ -1,6 +1,10 @@
 @import 'variables';
 @import 'utils';
 
+.work-sectors-section {
+  overflow: visible;
+}
+
 .work-sectors-container {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -8,9 +12,10 @@
   align-items: center;
   position: relative;
   margin-bottom: pxToVw(160);
+  overflow: visible;
 
   &:first-of-type {
-    margin-bottom: 0;
+    margin-bottom: pxToVw(15);
   }
 
   h2 {
@@ -26,10 +31,24 @@
     padding: pxToVw(112.5) pxToVw(54);
     background: linear-gradient(
       90deg,
-      rgba($base-black, 0.05) 0,
-      rgba($base-white, 0.05) 100%
+      rgba($base-black, 1) 0,
+      /* @TODO: Create a reusable variable if used multipe times */
+        rgba(29, 29, 29, 1) 100%
     );
     border-radius: pxToVw(24);
+    position: relative;
+
+    &::before {
+      content: ' ';
+      position: absolute;
+      width: calc(100% + pxToVw(2));
+      height: calc(100% + pxToVw(2));
+      background: linear-gradient(90deg, $base-black 0%, $gray-dark 100%);
+      z-index: -1;
+      top: pxToVw(-1);
+      left: pxToVw(-1);
+      border-radius: pxToVw(24.5);
+    }
 
     // svg {
     //   position: absolute;

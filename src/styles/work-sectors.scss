@@ -32,8 +32,8 @@
     background: linear-gradient(
       90deg,
       rgba($base-black, 1) 0,
-      /* @TODO: Create a reusable variable if used multipe times */
-        rgba(29, 29, 29, 1) 100%
+      /* @TODO: Create a reusable variable if used more than 2 times */
+        rgb(29, 29, 29) 100%
     );
     border-radius: pxToVw(24);
     position: relative;

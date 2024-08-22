@@ -3,6 +3,7 @@
 
 .work-sectors-section {
   overflow: visible;
+  margin-bottom: pxToVw(100);
 }
 
 .work-sectors-container {
@@ -11,7 +12,6 @@
   column-gap: pxToVw(88);
   align-items: center;
   position: relative;
-  margin-bottom: pxToVw(160);
   overflow: visible;
 
   &:first-of-type {

@@ -15,8 +15,8 @@
   flex-wrap: nowrap;
   overflow: scroll;
   border-radius: pxToVw(24);
-  padding: pxToVw(20) pxToVw(25);
-  gap: pxToVw(25);
+  padding: pxToVw(30) pxToVw(25) pxToVw(25) pxToVw(45);
+  gap: pxToVw(45);
 }
 
 .testimonial {
@@ -29,9 +29,22 @@
 
   &__intro {
     display: flex;
-    margin-bottom: pxToVw(8);
+    margin-bottom: pxToVw(16);
     gap: pxToVw(20);
     align-items: center;
+    position: relative;
+
+    &::before {
+      content: ' ';
+      height: pxToVw(118);
+      width: pxToVw(118);
+      position: absolute;
+      background: $base-white;
+      top: pxToVw(-39);
+      left: pxToVw(-39);
+      border-radius: 100%;
+      border-bottom-right-radius: 5%;
+    }
   }
 
   &__name {
@@ -39,10 +52,13 @@
   }
 
   &__image {
-    height: pxToVw(100);
-    width: pxToVw(100);
+    height: pxToVw(110);
+    width: pxToVw(110);
     display: block;
     border-radius: 100%;
+    z-index: 1;
+    margin-left: pxToVw(-35);
+    margin-top: pxToVw(-35);
   }
 
   &__blurred-text {

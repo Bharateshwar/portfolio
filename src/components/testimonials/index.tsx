@@ -1,7 +1,11 @@
 import { useGSAP } from '@gsap/react';
+import { useLoaderData } from '@remix-run/react';
+import cx from 'classnames';
 import gsap from 'gsap/dist/gsap';
 import ScrollToPlugin from 'gsap/dist/ScrollToPlugin';
 import { useRef } from 'react';
+
+import { loader as homePageLoader } from 'routes/_index';
 
 import 'styles/testimonials.scss';
 import { TESTIMONIALS } from './constants';
@@ -9,6 +13,8 @@ import { TESTIMONIALS } from './constants';
 function Testimonials() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollAnimationRef = useRef<GSAPAnimation | null>(null);
+
+  const { showContainedTestimonials } = useLoaderData<typeof homePageLoader>();
 
   useGSAP(
     () => {
@@ -78,7 +84,11 @@ function Testimonials() {
   );
 
   return (
-    <section className="testimonials-section">
+    <section
+      className={cx('testimonials-section', {
+        'testimonials-section--contained': showContainedTestimonials,
+      })}
+    >
       {renderTestimonials()}
       <a
         href="https://www.linkedin.com/in/bharateshwar/details/recommendations/"

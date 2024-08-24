@@ -71,8 +71,8 @@ li::marker {
   color: $base-white;
 }
 
-.body-large {
-  font-size: 1.528vw;
+.body-small {
+  font-size: pxToVw(14);
   line-height: 1.36;
   letter-spacing: 0.05em;
 }

@@ -36,8 +36,8 @@ function Testimonials() {
 
   const playScrollAnimation = () => scrollAnimationRef.current?.play();
 
-  return (
-    <section className="testimonials-section hide-scrollbar" ref={containerRef}>
+  const renderTestimonials = () => (
+    <div className="testimonials-container hide-scrollbar" ref={containerRef}>
       {TESTIMONIALS.map(
         (
           { name, company, designation, image, pretext, excerpt, posttext },
@@ -74,6 +74,20 @@ function Testimonials() {
           );
         },
       )}
+    </div>
+  );
+
+  return (
+    <section className="testimonials-section">
+      {renderTestimonials()}
+      <a
+        href="https://www.linkedin.com/in/bharateshwar/details/recommendations/"
+        target="blank"
+        rel="noreferrer"
+        className="body-small"
+      >
+        Endorsed by Peers ↗
+      </a>
     </section>
   );
 }

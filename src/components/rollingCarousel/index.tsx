@@ -62,6 +62,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
     // const wrap = gsap.utils.wrap(0, 1);
     // Animate items along svg path
     // const rollingAnimation =
+    // @TODO: Pause animation if out of view
     createRollingAnimation(carouselItems);
 
     // Fade items into view
@@ -70,6 +71,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
     // Main carousel scroll scrubbed animation trigger
     ScrollTrigger.create({
       trigger: ROLLING_CAROUSEL_SELECTOR,
+      // @TODO: Make circle & slides pin when at center, there are alignment issues coz of 10% & padding bottom at slide items
       start: 'top 10%',
       end: () => getScrollTriggerEnd(),
       pin: true,
@@ -306,7 +308,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
   };
 
   return (
-    <div className="rolling-carousel-container" ref={mainContainerRef}>
+    <section className="rolling-carousel-container" ref={mainContainerRef}>
       <div
         className={cx(ROLLING_CAROUSEL_CLASS, {
           [`${ROLLING_CAROUSEL_CLASS}--left`]: alignment === 'left',
@@ -327,7 +329,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

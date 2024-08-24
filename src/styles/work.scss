@@ -1,0 +1,74 @@
+@import 'variables';
+@import 'utils';
+
+.work-history {
+  margin: pxToVw(30) auto 0;
+
+  &-heading {
+    text-align: right;
+  }
+
+  &__item {
+    width: 100%;
+    position: relative;
+    border-bottom: pxToVw(1) solid $gray-dark;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:first-of-type {
+      border-top: pxToVw(1) solid $gray-dark;
+    }
+
+    &__details-container {
+      display: flex;
+      padding-top: pxToVw(22);
+      padding-bottom: pxToVw(22);
+      align-items: center;
+    }
+
+    &__designation,
+    &__employer-name {
+      color: $base-white;
+    }
+
+    &__designation {
+      width: 100%;
+      max-width: pxToVw(500);
+      margin-left: auto;
+    }
+
+    &__period-details {
+      width: 100%;
+      max-width: pxToVw(280);
+    }
+
+    &__duration {
+      text-transform: capitalize;
+    }
+
+    &__description {
+      position: absolute;
+      top: 50%;
+      right: -60%;
+      width: 60%;
+      transform: translateY(-50%);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      background: $base-white;
+      width: 100%;
+      height: 100%;
+      top: -100%;
+      left: 0;
+      mix-blend-mode: difference;
+      transition: top 0.175s linear;
+    }
+
+    &--active::after,
+    &:hover::after {
+      top: 0;
+    }
+  }
+}

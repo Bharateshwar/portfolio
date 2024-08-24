@@ -8,7 +8,7 @@ export const GB_FEATURES = {
 const getGrowthbookInstance = async ({ id }: { id: string }) => {
   const growthbook = new GrowthBook({
     apiHost: 'https://cdn.growthbook.io',
-    clientKey: 'sdk-eAaTql31tJ0J0tF',
+    clientKey: process.env.GB_CLIENT_KEY,
     enableDevMode: true,
     attributes: {
       id,

@@ -1,0 +1,9 @@
+@import 'variables';
+@import 'utils';
+
+.background-break-container {
+  margin: auto;
+  border-bottom-left-radius: pxToVw(40);
+  border-bottom-right-radius: pxToVw(40);
+  overflow: hidden;
+}

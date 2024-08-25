@@ -2,7 +2,7 @@ import 'styles/hero.scss';
 
 function Hero() {
   return (
-    <div className="hero">
+    <section className="hero">
       <p className="hero__intro body-large">Hi, I&apos;m Bharateshwar</p>
       <h1 className="hero__headline">
         <span className="hero__headline__item--one">Front-end</span>
@@ -12,7 +12,7 @@ function Hero() {
         For over half a decade, I&apos;ve been dedicated to creating quality web
         solutions while working remotely from India.
       </p>
-    </div>
+    </section>
   );
 }
 

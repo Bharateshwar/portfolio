@@ -1,3 +1,26 @@
+@mixin primaryTypographyColors {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li::marker {
+    color: $base-white;
+  }
+
+  p,
+  a {
+    color: $gray-light;
+  }
+
+  a:hover {
+    color: $base-white;
+  }
+}
+
+@include primaryTypographyColors();
+
 h1,
 h2,
 h3,
@@ -5,13 +28,13 @@ h4,
 h5,
 h6 {
   font-family: $font-secondary;
-  color: $base-white;
   font-weight: $fw-regular;
   letter-spacing: 0.06em;
   margin: 0;
 }
 
-h1 {
+h1,
+h2.h2-extra-large {
   // Extra precision for larger fonts
   font-size: 9.7222vw;
   line-height: 1;
@@ -21,6 +44,11 @@ h2 {
   font-size: 2.778vw;
   line-height: 1.3;
   letter-spacing: -0.02em;
+
+  &.h2-large {
+    font-size: 4.444vw;
+    letter-spacing: 0.06em;
+  }
 }
 
 h3 {
@@ -29,29 +57,55 @@ h3 {
 }
 
 p {
-  color: $gray-light;
   margin: 0;
   letter-spacing: 0.06em;
 }
 
 a {
   text-decoration: none;
-  color: $gray-light;
-  font-style: italic;
   letter-spacing: 0.06em;
   font-family: $font-secondary;
-
-  &:hover {
-    color: $base-white;
-  }
 }
 
 li::marker {
   color: $base-white;
 }
 
-.body-large {
-  font-size: 1.528vw;
+.body-small {
+  font-size: pxToVw(14);
   line-height: 1.36;
   letter-spacing: 0.05em;
+}
+
+.body-extra-large {
+  font-size: pxToVw(24);
+  line-height: 1.36;
+  letter-spacing: 0.105em;
+}
+
+.container {
+  &--secondary {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    li::marker {
+      color: $base-black;
+    }
+
+    p,
+    a {
+      color: $gray-dark;
+    }
+
+    a:hover {
+      color: $base-black;
+    }
+  }
+
+  &--primary {
+    @include primaryTypographyColors();
+  }
 }

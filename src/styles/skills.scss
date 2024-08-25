@@ -1,0 +1,55 @@
+@import 'variables';
+@import 'utils';
+
+.skills-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: pxToVw(40);
+  margin: 9.027vw 0;
+}
+
+.skills-row {
+  display: flex;
+  gap: 2vw;
+  width: max-content;
+
+  &:nth-child(even) {
+    align-self: flex-end;
+
+    &,
+    .skills-list,
+    ul {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+.skills-list {
+  display: flex;
+  gap: 4.16vw;
+  align-items: center;
+  flex-shrink: 0;
+
+  ul {
+    display: flex;
+    gap: 4.16vw;
+  }
+
+  &__title {
+    flex-shrink: 0;
+  }
+
+  &__item {
+    display: inline;
+
+    &__logo {
+      height: 1.75vw;
+      color: $base-white;
+
+      svg {
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+}

@@ -14,17 +14,44 @@ body {
   background: $base-black;
   font-family: $font-primary;
   margin: auto;
-  padding: 2.778vw 3.472vw;
   letter-spacing: 0.06em;
   line-height: 1.5;
   font-size: 1.111vw;
   overflow-x: clip;
+}
 
-  // @TODO: Remove this after adding sections below the rolling carousel
-  padding-bottom: 6000px;
+.container {
+  padding: 0 3.472vw;
+  overflow: hidden;
+
+  &--primary {
+    background: $base-black;
+  }
+
+  &--secondary {
+    background: $base-white;
+  }
+
+  &--full-width {
+    padding: 0;
+  }
 }
 
 ::selection {
   color: $accent-one;
   background-color: rgba($base-white, 0.1);
+}
+
+ul,
+button {
+  all: unset;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
 }

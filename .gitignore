@@ -10,8 +10,8 @@ build
 .cache
 
 # Ignore all environment files except .env.sample
-!.env.sample
 .env*
+!.env.sample
 
 # macOS specific files
 .DS_Store

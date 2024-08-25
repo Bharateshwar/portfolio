@@ -1,4 +1,6 @@
 .nav {
+  padding-top: 2.778vw;
+
   &__top {
     display: flex;
     gap: 4.861vw;
@@ -8,7 +10,6 @@
       content: ' ';
       display: block;
       position: absolute;
-      z-index: -1;
       transform: rotate(-33deg);
       border-radius: calc(1px * infinity);
     }
@@ -37,6 +38,14 @@
     display: flex;
     align-items: center;
     z-index: 1;
+    transition:
+      top 0.5s,
+      bottom 0.5s;
+
+    &.--dark {
+      bottom: pxToVw(40);
+      right: pxToVw(40);
+    }
   }
 
   .nav__link--hire,
@@ -49,15 +58,35 @@
     border-radius: calc(1px * infinity);
     border: 0.139vw solid $base-white;
     font-size: 1.25vw;
+    transition:
+      background-color 0.35s,
+      color 0.35s,
+      width 0.35s,
+      height 0.35s,
+      border-color 0.35s,
+      font-size 0.35s,
+      transform 0.3s;
+
+    &.--dark {
+      height: 2.184vw;
+      width: 10.278vw;
+      font-size: pxToVw(14);
+    }
   }
 
   .nav__link--hire {
     order: 1;
     z-index: 1;
     will-change: transform;
-    transition: transform 0.3s;
     color: $base-white;
     transform: translateX(100%);
+    background: $base-black;
+
+    // Avoiding BEM for --dark modified for ease of toggling
+    &.--dark {
+      color: rgba($gray-light, 0.75);
+      border-color: rgba($gray-light, 0.5);
+    }
 
     &:hover {
       transform: translateX(21%);
@@ -69,6 +98,14 @@
     z-index: 2;
     background: $base-white;
     color: $base-black;
+
+    // Avoiding BEM for --dark modified for ease of toggling
+    &.--dark {
+      /* @TODO: Create a reusable variable if used more than 2 times */
+      background: rgb(29, 29, 29);
+      color: rgba($gray-light, 0.75);
+      border-color: rgba($gray-light, 0.75);
+    }
 
     &:hover ~ .nav__link--hire {
       transform: translateX(21%);

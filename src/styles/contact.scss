@@ -1,0 +1,64 @@
+@import 'variables';
+@import 'utils';
+
+.contact-section {
+  margin-top: pxToVw(80);
+
+  &,
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  form {
+    gap: pxToVw(24);
+    margin-top: pxToVw(24);
+    width: 100%;
+  }
+
+  input,
+  textarea {
+    all: unset;
+    box-sizing: border-box;
+    background: $base-black;
+    border-radius: pxToVw(16);
+    width: 100%;
+    max-width: pxToVw(595);
+    padding: pxToVw(16);
+    color: $base-white;
+
+    &::placeholder {
+      color: $gray-light;
+      font-size: pxToVw(14);
+    }
+
+    &:active,
+    &:focus {
+      outline: pxToVw(4) solid $accent-one;
+    }
+  }
+
+  button {
+    background: $base-black;
+    color: $gray-light;
+    height: 3.184vw;
+    width: 15.278vw;
+    border-radius: calc(1px * infinity);
+    font-size: 1.25vw;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.35s;
+
+    &:disabled {
+      cursor: not-allowed;
+      color: $gray-dark;
+    }
+
+    &:hover:not(:disabled) {
+      color: $base-white;
+    }
+  }
+}

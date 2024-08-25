@@ -2,6 +2,7 @@ import { createCookie, json, type MetaFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
 import BackgroundBreakContainer from 'components/BackgroundBreakContainer';
+import Contact from 'components/contact';
 import Container from 'components/container';
 import Hero from 'components/hero';
 import RollingCaoursel from 'components/rollingCarousel';
@@ -72,6 +73,7 @@ export default function Index() {
         <BackgroundBreakContainer>
           <WorkSectors />
         </BackgroundBreakContainer>
+        <Contact />
       </Container>
     </>
   );

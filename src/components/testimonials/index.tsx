@@ -37,7 +37,6 @@ function Testimonials() {
         trigger: containerRef.current,
         start: 'bottom bottom',
         end: 'bottom 20%',
-        markers: true,
         onEnter: setStartTime,
         onLeave: sendDurationEvent,
         onEnterBack: setStartTime,

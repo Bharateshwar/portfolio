@@ -105,7 +105,7 @@ li::marker {
     }
   }
 
-  &--gradient {
+  &--primary {
     @include primaryTypographyColors();
   }
 }

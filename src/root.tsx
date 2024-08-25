@@ -6,6 +6,8 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
+  json,
+  useLoaderData,
   useRouteError,
 } from '@remix-run/react';
 
@@ -14,7 +16,15 @@ import Nav from 'components/nav';
 // Styles
 import 'styles/main.scss';
 
+export async function loader() {
+  return json({
+    GA_MEASUREMENT_ID: process.env.GA_MEASUREMENT_ID,
+  });
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { GA_MEASUREMENT_ID } = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
@@ -22,6 +32,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+            `,
+          }}
+        />
       </head>
       <body>
         <Nav />

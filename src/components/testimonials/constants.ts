@@ -44,3 +44,12 @@ export const TESTIMONIALS = [
     posttext: 'He is great in understanding ideas...',
   },
 ];
+
+export const EVENT_CATEGORIES = {
+  TESTIMONIALS: 'Testimonials',
+};
+
+export const ANALYTICS_EVENTS = {
+  LINKEDIN_RECOMMENDATIONS_OPENED: 'linkedin_recommendations_opened',
+  TESTIMONIALS_ENGAGEMENT_DURATION: 'testimonials_engagement_duration',
+};

@@ -2,21 +2,35 @@
 @import 'variables';
 
 .testimonials-section {
-  margin: pxToVw(100) 0;
+  margin: pxToVw(78) 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: pxToVw(16);
+  overflow: visible;
+
+  &--contained {
+    margin-top: pxToVw(100);
+
+    .testimonials-container {
+      background: $gray-light;
+      border-radius: pxToVw(24);
+      padding: pxToVw(30) pxToVw(25) pxToVw(25) pxToVw(45);
+
+      .testimonial {
+        box-shadow: -4px 4px 4px 0px rgba($gray-dark, 0.5);
+        border: none;
+      }
+    }
+  }
 }
 
 .testimonials-container {
-  background: $gray-light;
   display: flex;
   flex-wrap: nowrap;
   overflow: scroll;
-  border-radius: pxToVw(24);
-  padding: pxToVw(20) pxToVw(25);
-  gap: pxToVw(25);
+  padding: pxToVw(22) pxToVw(50) 0 pxToVw(50);
+  gap: pxToVw(45);
 }
 
 .testimonial {
@@ -24,14 +38,27 @@
   flex-shrink: 0;
   max-width: pxToVw(500);
   border-radius: pxToVw(16);
-  padding: pxToVw(20) pxToVw(16);
-  box-shadow: -4px 4px 4px 0px rgba($gray-dark, 0.5);
+  padding: pxToVw(16);
+  border: 2px solid $gray-dark;
 
   &__intro {
     display: flex;
-    margin-bottom: pxToVw(8);
-    gap: pxToVw(20);
+    margin-bottom: pxToVw(16);
+    gap: pxToVw(25);
     align-items: center;
+    position: relative;
+
+    &::before {
+      content: ' ';
+      height: pxToVw(118);
+      width: pxToVw(118);
+      position: absolute;
+      background: $base-white;
+      top: pxToVw(-39);
+      left: pxToVw(-39);
+      border-radius: 100%;
+      border-bottom-right-radius: 5%;
+    }
   }
 
   &__name {
@@ -39,10 +66,13 @@
   }
 
   &__image {
-    height: pxToVw(100);
-    width: pxToVw(100);
+    height: pxToVw(110);
+    width: pxToVw(110);
     display: block;
     border-radius: 100%;
+    z-index: 1;
+    margin-left: pxToVw(-35);
+    margin-top: pxToVw(-35);
   }
 
   &__blurred-text {

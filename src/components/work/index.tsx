@@ -37,7 +37,7 @@ function Work() {
         activeItemTlRef.current = null;
       }
 
-      // No active needed if no index is active
+      // No action needed if no index is active
       if (activeItemIndex === null) return;
 
       // Get elements to animate

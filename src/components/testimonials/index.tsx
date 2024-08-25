@@ -1,15 +1,52 @@
 import { useGSAP } from '@gsap/react';
+import { useLoaderData } from '@remix-run/react';
+import cx from 'classnames';
 import gsap from 'gsap/dist/gsap';
 import ScrollToPlugin from 'gsap/dist/ScrollToPlugin';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useRef } from 'react';
 
+import { loader as homePageLoader } from 'routes/_index';
+
 import 'styles/testimonials.scss';
-import { TESTIMONIALS } from './constants';
+import { ANALYTICS_EVENTS, EVENT_CATEGORIES, TESTIMONIALS } from './constants';
 
 function Testimonials() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollAnimationRef = useRef<GSAPAnimation | null>(null);
 
+  const { showContainedTestimonials } = useLoaderData<typeof homePageLoader>();
+
+  // Engagement duration analytics
+  useGSAP(
+    () => {
+      let startTime: number | null = null;
+
+      const sendDurationEvent = () => {
+        if (startTime) {
+          const duration = (Date.now() - startTime) / 1000;
+          sendEngagementDurationEvent(duration);
+        }
+      };
+
+      const setStartTime = () => {
+        startTime = Date.now();
+      };
+
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: 'bottom bottom',
+        end: 'bottom 20%',
+        onEnter: setStartTime,
+        onLeave: sendDurationEvent,
+        onEnterBack: setStartTime,
+        onLeaveBack: sendDurationEvent,
+      });
+    },
+    { scope: containerRef },
+  );
+
+  // Autoscroll animation
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollToPlugin);
@@ -35,6 +72,31 @@ function Testimonials() {
   const pauseScrollAnimation = () => scrollAnimationRef.current?.pause();
 
   const playScrollAnimation = () => scrollAnimationRef.current?.play();
+
+  const sendClickEvent = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).gtag(
+      'event',
+      ANALYTICS_EVENTS.LINKEDIN_RECOMMENDATIONS_OPENED,
+      {
+        event_category: EVENT_CATEGORIES.TESTIMONIALS,
+        event_label: showContainedTestimonials ? 'contained' : 'clean',
+      },
+    );
+  };
+
+  const sendEngagementDurationEvent = (duration: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).gtag(
+      'event',
+      ANALYTICS_EVENTS.TESTIMONIALS_ENGAGEMENT_DURATION,
+      {
+        event_category: EVENT_CATEGORIES.TESTIMONIALS,
+        event_label: showContainedTestimonials ? 'contained' : 'clean',
+        value: duration,
+      },
+    );
+  };
 
   const renderTestimonials = () => (
     <div className="testimonials-container hide-scrollbar" ref={containerRef}>
@@ -78,13 +140,18 @@ function Testimonials() {
   );
 
   return (
-    <section className="testimonials-section">
+    <section
+      className={cx('testimonials-section', {
+        'testimonials-section--contained': showContainedTestimonials,
+      })}
+    >
       {renderTestimonials()}
       <a
         href="https://www.linkedin.com/in/bharateshwar/details/recommendations/"
         target="blank"
         rel="noreferrer"
         className="body-small"
+        onClick={sendClickEvent}
       >
         Endorsed by Peers ↗
       </a>

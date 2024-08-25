@@ -1,9 +1,10 @@
 @import 'variables';
+@import 'utils';
 
 .skills-section {
   display: flex;
   flex-direction: column;
-  row-gap: 5.55vw;
+  row-gap: pxToVw(40);
   margin: 9.027vw 0;
 }
 

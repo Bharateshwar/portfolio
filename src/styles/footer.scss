@@ -3,6 +3,8 @@
 
 .footer {
   margin: pxToVw(100) 0 pxToVw(30);
+  display: flex;
+  justify-content: space-between;
 
   &__links-container {
     display: flex;
@@ -11,18 +13,46 @@
     z-index: 1;
   }
 
-  &__link {
+  &__link,
+  &__note {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: pxToVw(30);
+    position: relative;
+
+    &::before {
+      content: ' ';
+      position: absolute;
+      border-top: pxToVw(1) solid $gray-light;
+      top: 50%;
+      background: $gray-light;
+      z-index: -1;
+    }
+  }
+
+  &__note {
+    background: $gray-light;
+    border-radius: calc(1px * infinity);
+    color: $base-white;
+    padding: 0 pxToVw(40);
+    max-width: max-content;
+    z-index: 1;
+
+    &::before {
+      width: pxToVw(60);
+      left: 100%;
+    }
+  }
+
+  &__link {
     gap: pxToVw(6);
     width: pxToVw(150);
-    height: pxToVw(30);
     // @TODO: Check if this can be done without !important
     color: $gray-light !important;
     border: pxToVw(1) solid $gray-light;
     border-radius: calc(1px * infinity);
-    position: relative;
+
     background: $base-white;
     transition:
       color 0.15s ease,
@@ -35,14 +65,8 @@
     }
 
     &::before {
-      content: ' ';
-      position: absolute;
-      border-top: pxToVw(1) solid $gray-light;
       width: 100%;
       left: -100%;
-      top: 50%;
-      background: $gray-light;
-      z-index: -1;
     }
 
     &:hover {

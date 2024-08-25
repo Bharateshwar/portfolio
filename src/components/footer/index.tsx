@@ -20,7 +20,12 @@ function Footer() {
     </div>
   );
 
-  return <footer className="footer">{renderFooterLinks()}</footer>;
+  return (
+    <footer className="footer">
+      {renderFooterLinks()}
+      <span className="footer__note">Site designed & developed by Me.</span>
+    </footer>
+  );
 }
 
 export default Footer;

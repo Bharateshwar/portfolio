@@ -7,7 +7,7 @@ function Footer() {
     <div className="footer__links-container">
       {FOOTER_LINKS.map(({ title, icon: Icon, link }) => (
         <a
-          className="footer__link"
+          className="footer__link body-small"
           key={title}
           href={link}
           rel="noreferrer"

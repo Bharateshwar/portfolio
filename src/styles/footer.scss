@@ -17,7 +17,7 @@
     justify-content: center;
     gap: pxToVw(6);
     width: pxToVw(150);
-    height: pxToVw(40);
+    height: pxToVw(30);
     // @TODO: Check if this can be done without !important
     color: $gray-light !important;
     border: pxToVw(1) solid $gray-light;
@@ -29,7 +29,7 @@
       border-color 0.15s ease;
 
     svg {
-      width: pxToVw(20);
+      width: pxToVw(16);
       height: auto;
       transition: scale 0.15s ease;
     }

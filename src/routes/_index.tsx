@@ -1,6 +1,7 @@
 import { createCookie, json, type MetaFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
+import BackgroundBreakContainer from 'components/BackgroundBreakContainer';
 import Container from 'components/container';
 import Hero from 'components/hero';
 import RollingCaoursel from 'components/rollingCarousel';
@@ -67,13 +68,11 @@ export default function Index() {
       <Container fullWidth={!showContainedTestimonials}>
         <Testimonials />
       </Container>
-      {/* @TODO: Implement background break */}
-      {/* <Container variant="secondary" fullWidth>
-        <BackgroundBreakContainer> */}
-      {/* @TODO Check if the container in worksectors is required */}
-      <WorkSectors />
-      {/* </BackgroundBreakContainer>
-      </Container> */}
+      <Container variant="secondary" fullWidth>
+        <BackgroundBreakContainer>
+          <WorkSectors />
+        </BackgroundBreakContainer>
+      </Container>
     </>
   );
 }

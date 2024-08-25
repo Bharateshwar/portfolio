@@ -4,6 +4,7 @@ import { useLoaderData } from '@remix-run/react';
 import BackgroundBreakContainer from 'components/BackgroundBreakContainer';
 import Contact from 'components/contact';
 import Container from 'components/container';
+import Footer from 'components/footer';
 import Hero from 'components/hero';
 import RollingCaoursel from 'components/rollingCarousel';
 import Skills from 'components/skills';
@@ -73,7 +74,10 @@ export default function Index() {
         <BackgroundBreakContainer>
           <WorkSectors />
         </BackgroundBreakContainer>
-        <Contact />
+        <Container variant="secondary">
+          <Contact />
+          <Footer />
+        </Container>
       </Container>
     </>
   );

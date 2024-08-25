@@ -1,0 +1,56 @@
+@import 'variables';
+@import 'utils';
+
+.footer {
+  margin: pxToVw(100) 0 pxToVw(30);
+
+  &__links-container {
+    display: flex;
+    gap: pxToVw(40);
+    position: relative;
+    z-index: 1;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: pxToVw(6);
+    width: pxToVw(150);
+    height: pxToVw(40);
+    // @TODO: Check if this can be done without !important
+    color: $gray-light !important;
+    border: pxToVw(1) solid $gray-light;
+    border-radius: calc(1px * infinity);
+    position: relative;
+    background: $base-white;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+
+    svg {
+      width: pxToVw(20);
+      height: auto;
+      transition: scale 0.15s ease;
+    }
+
+    &::before {
+      content: ' ';
+      position: absolute;
+      border-top: pxToVw(1) solid $gray-light;
+      width: 100%;
+      left: -100%;
+      top: 50%;
+      background: $gray-light;
+      z-index: -1;
+    }
+
+    &:hover {
+      color: $gray-dark !important;
+
+      svg {
+        scale: 1.1;
+      }
+    }
+  }
+}

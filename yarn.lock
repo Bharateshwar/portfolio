@@ -812,6 +812,19 @@
   resolved "https://registry.yarnpkg.com/@jspm/core/-/core-2.0.1.tgz#3f08c59c60a5f5e994523ed6b0b665ec80adc94e"
   integrity sha512-Lg3PnLp0QXpxwLIAuuJboLeRaIhrgJjeuh797QADg3xz8wGLugQOS5DpsE8A6i6Adgzf+bacllkKZG3J0tGfDw==
 
+"@lottiefiles/dotlottie-react@^0.8.10":
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-react/-/dotlottie-react-0.8.10.tgz#202cca84ff56638d399bf1e6b2009fb7ed82676d"
+  integrity sha512-BLCsP16wHOFwgjPDM6gicskGsi/6G6gMeM3MvtLLTNyEx6OT8a7LET+P4l1nYYp2b0VYjf88bH2XNI9hha8bng==
+  dependencies:
+    "@lottiefiles/dotlottie-web" "0.31.1"
+    debounce "^2.0.0"
+
+"@lottiefiles/dotlottie-web@0.31.1":
+  version "0.31.1"
+  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-web/-/dotlottie-web-0.31.1.tgz#e316ab84f355a444cbc69552e4b334f2f6e690f6"
+  integrity sha512-s2L3SQvmGq6ouxBlEHbNDulFZq87LJZizg5yzrUkZkmGXpjL7pDq6FNqPTxEKqXg6iu9snlXhPg+kqg5znz5Tw==
+
 "@mdx-js/mdx@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-2.3.0.tgz#d65d8c3c28f3f46bb0e7cb3bf7613b39980671a9"
@@ -2101,6 +2114,11 @@ date-fns@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-3.6.0.tgz#f20ca4fe94f8b754951b24240676e8618c0206bf"
   integrity sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==
+
+debounce@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/debounce/-/debounce-2.1.0.tgz#eab25eaf254b848fcfccffbde75bdaa44842caa3"
+  integrity sha512-OkL3+0pPWCqoBc/nhO9u6TIQNTK44fnBnzuVtJAbp13Naxw9R6u21x+8tVTka87AhDZ3htqZ2pSSsZl9fqL2Wg==
 
 debug@2.6.9:
   version "2.6.9"

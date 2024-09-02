@@ -12,6 +12,7 @@ import {
 } from '@remix-run/react';
 
 import Nav from 'components/nav';
+import WipOverlay from 'components/WipOverlay';
 
 // Styles
 import 'styles/main.scss';
@@ -54,6 +55,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           Site Under Development. Beware of placeholder content, broken layouts
           and of course the 🐞
         </div>
+        <WipOverlay />
         <Nav />
         {children}
         <ScrollRestoration />

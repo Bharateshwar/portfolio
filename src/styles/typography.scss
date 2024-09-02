@@ -46,7 +46,7 @@ h2 {
   letter-spacing: -0.02em;
 
   &.h2-large {
-    font-size: 4.444vw;
+    font-size: max(pxToVw(64), 30px);
     letter-spacing: 0.06em;
   }
 }

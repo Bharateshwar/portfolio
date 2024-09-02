@@ -11,3 +11,24 @@
 @function pxToVw($px) {
   @return calc(($px / 1440)) * 100vw;
 }
+
+// Note: Going with desktop first approach as I expect most hiring managers to be on laptops or desktops
+@mixin media($breakpoint) {
+  @if $breakpoint == 'sm' {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if $breakpoint == 'md' {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg' {
+    @media (max-width: 1199px) {
+      @content;
+    }
+  } @else if $breakpoint == 'xl' {
+    @media (max-width: 1599px) {
+      @content;
+    }
+  }
+}

@@ -17,6 +17,7 @@
   "dependencies": {
     "@growthbook/growthbook": "^1.2.0",
     "@gsap/react": "^2.1.1",
+    "@lottiefiles/dotlottie-react": "^0.8.10",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",

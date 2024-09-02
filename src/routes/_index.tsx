@@ -1,4 +1,9 @@
-import { createCookie, json, type MetaFunction } from '@remix-run/node';
+import {
+  ActionFunctionArgs,
+  createCookie,
+  json,
+  type MetaFunction,
+} from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
 import BackgroundBreakContainer from 'components/BackgroundBreakContainer';
@@ -81,4 +86,39 @@ export default function Index() {
       </Container>
     </>
   );
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+
+  const fromEmail = formData.get('email');
+  const message = formData.get('message');
+
+  // @TODO: Apply validations on data before submit
+  const data = {
+    service_id: process.env.EMAIL_SERVICE_ID,
+    template_id: process.env.EMAIL_TEMPLATE_ID,
+    user_id: process.env.EMAIL_SERVICE_KEY,
+    template_params: { from_email: fromEmail, message },
+  };
+
+  // @TODO: Setup loading and error states on UI
+  try {
+    const response = await fetch(
+      'https://api.emailjs.com/api/v1.0/email/send',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      },
+    );
+
+    if (response.ok) {
+      return json({ emailSent: true });
+    }
+  } catch (error) {
+    console.error('Oops... ', { error });
+  }
 }

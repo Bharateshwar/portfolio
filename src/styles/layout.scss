@@ -27,28 +27,36 @@ body {
 .root-container {
   position: relative;
   overflow: clip;
+
+  ::selection {
+    color: $accent-one;
+    background-color: rgba($base-white, 0.1);
+  }
 }
 
 .container {
   padding: 0 3.472vw;
   overflow: hidden;
 
-  &--primary {
-    background: $base-black;
-  }
-
   &--secondary {
     background: $base-white;
+
+    ::selection {
+      background-color: rgba($gray-dark, 0.25);
+    }
+  }
+
+  &--primary {
+    background: $base-black;
+
+    ::selection {
+      background-color: rgba($base-white, 0.1);
+    }
   }
 
   &--full-width {
     padding: 0;
   }
-}
-
-::selection {
-  color: $accent-one;
-  background-color: rgba($base-white, 0.1);
 }
 
 ul,

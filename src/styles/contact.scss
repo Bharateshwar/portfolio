@@ -28,6 +28,10 @@
     padding: pxToVw(16);
     color: $base-white;
 
+    &::selection {
+      background-color: rgba($base-white, 0.1);
+    }
+
     &::placeholder {
       color: $gray-light;
       font-size: pxToVw(14);

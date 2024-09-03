@@ -50,16 +50,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body>
-        {/* @TODO: Remove the wip-label once site is complete */}
-        <div className="wip-label">
-          Site Under Development. Beware of placeholder content, broken layouts
-          and of course the 🐞
+        <div className="root-container">
+          {/* @TODO: Remove the wip-label once site is complete */}
+          <div className="wip-label">
+            Site Under Development. Beware of placeholder content, broken
+            layouts and of course the 🐞
+          </div>
+          <WipOverlay />
+          <Nav />
+          {children}
+          <ScrollRestoration />
+          <Scripts />
         </div>
-        <WipOverlay />
-        <Nav />
-        {children}
-        <ScrollRestoration />
-        <Scripts />
       </body>
     </html>
   );

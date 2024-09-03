@@ -1,6 +1,9 @@
+@import 'variables';
+@import 'utils';
+
 .hero {
   &__intro {
-    margin: 9.514vw 0 0.694vw;
+    margin: pxToVw(201) 0 0.694vw;
   }
 
   &__headline {
@@ -21,5 +24,29 @@
   &__description {
     max-width: 34.722vw;
     margin-top: -8.056vw;
+  }
+
+  &__strip {
+    display: block;
+    position: absolute;
+    transform: rotate(-33deg);
+    border-radius: calc(1px * infinity);
+
+    &--one {
+      width: 39.2vw;
+      height: 2.581vw;
+      top: 7vw;
+      right: -1.38vw;
+      background: $accent-one;
+    }
+
+    &--two {
+      width: 22.84vw;
+      height: 2.77vw;
+      top: 10vw;
+      right: -4.86vw;
+      border: 0.139vw solid $accent-one;
+      box-sizing: content-box;
+    }
   }
 }

@@ -17,12 +17,16 @@ body {
   letter-spacing: 0.06em;
   line-height: 1.5;
   font-size: max(pxToVw(16), 16px);
-  overflow-x: clip;
 
   // @TODO: Remove when wip overlay is removed
   @include media('md') {
     overflow: hidden;
   }
+}
+
+.root-container {
+  position: relative;
+  overflow: clip;
 }
 
 .container {

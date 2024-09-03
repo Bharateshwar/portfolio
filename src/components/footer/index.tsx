@@ -13,7 +13,7 @@ function Footer() {
 
     ScrollTrigger.create({
       trigger: footer,
-      start: 'top 110%',
+      start: 'top 118%',
       animation: gsap.to(bottomNav, {
         right: '-20vw',
       }),

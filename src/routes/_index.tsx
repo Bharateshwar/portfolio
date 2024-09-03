@@ -88,18 +88,54 @@ export default function Index() {
   );
 }
 
+const validateContactFormData = ({
+  email,
+  message,
+}: {
+  email?: string;
+  message?: string;
+}) => {
+  const errors: { [key: string]: string } = {};
+
+  // Validate email
+  if (
+    email === undefined ||
+    !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+  ) {
+    errors.email = 'Hmm, this email doesn’t look right. Check again?';
+  } else if (email.length > 254) {
+    errors.email = 'This email is a bit too long.';
+  }
+
+  // Validate message
+  if (message === undefined) {
+    errors.message = 'Don’t be shy, tell me something!';
+  } else if (message.length < 10) {
+    errors.message =
+      'Your message is a bit short. Could you add a little more detail?';
+  }
+
+  return errors;
+};
+
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
-  const fromEmail = formData.get('email');
-  const message = formData.get('message');
+  const email = formData.get('email')?.toString();
+  const message = formData.get('message')?.toString();
+
+  const errors = validateContactFormData({ email, message });
+
+  if (Object.keys(errors).length > 0) {
+    return json({ errors });
+  }
 
   // @TODO: Apply validations on data before submit
   const data = {
     service_id: process.env.EMAIL_SERVICE_ID,
     template_id: process.env.EMAIL_TEMPLATE_ID,
     user_id: process.env.EMAIL_SERVICE_KEY,
-    template_params: { from_email: fromEmail, message },
+    template_params: { from_email: email, message },
   };
 
   // @TODO: Setup loading and error states on UI

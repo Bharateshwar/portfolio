@@ -4,7 +4,7 @@
   right: 3.472vw;
   display: flex;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
   transition:
     top 0.5s,
     bottom 0.5s;
@@ -47,6 +47,8 @@
     color: $base-white;
     transform: translateX(100%);
     background: $base-black;
+    box-sizing: border-box;
+    cursor: pointer;
 
     // Avoiding BEM for --dark modified for ease of toggling
     &.--dark {
@@ -69,8 +71,12 @@
     &.--dark {
       /* @TODO: Create a reusable variable if used more than 2 times */
       background: rgb(29, 29, 29);
-      color: rgba($gray-light, 0.75);
       border-color: rgba($gray-light, 0.75);
+
+      &,
+      &:hover {
+        color: rgba($gray-light, 0.75);
+      }
     }
 
     &:hover {

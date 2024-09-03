@@ -1,55 +1,21 @@
 .nav {
-  padding-top: 2.778vw;
+  position: fixed;
+  bottom: 6.122vw;
+  right: 3.472vw;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  transition:
+    top 0.5s,
+    bottom 0.5s;
 
-  &__top {
-    display: flex;
-    gap: 4.861vw;
-    justify-content: center;
-
-    .nav__link::before {
-      content: ' ';
-      display: block;
-      position: absolute;
-      transform: rotate(-33deg);
-      border-radius: calc(1px * infinity);
-    }
-
-    .nav__link:first-child::before {
-      width: 39.2vw;
-      height: 2.581vw;
-      top: 7vw;
-      right: -1.38vw;
-      background: $accent-one;
-    }
-
-    .nav__link:last-child::before {
-      width: 22.84vw;
-      height: 2.77vw;
-      top: 10vw;
-      right: -4.86vw;
-      border: 0.139vw solid $accent-one;
-    }
+  &.--dark {
+    bottom: pxToVw(30);
+    right: pxToVw(50);
   }
 
-  &__bottom {
-    position: fixed;
-    bottom: 6.122vw;
-    right: 3.472vw;
-    display: flex;
-    align-items: center;
-    z-index: 1;
-    transition:
-      top 0.5s,
-      bottom 0.5s;
-
-    &.--dark {
-      bottom: pxToVw(30);
-      right: pxToVw(50);
-    }
-  }
-
-  .nav__link--hire,
-  .nav__link--resume {
+  &__link--hire,
+  &__link--resume {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -74,7 +40,7 @@
     }
   }
 
-  .nav__link--hire {
+  &__link--hire {
     order: 1;
     z-index: 1;
     will-change: transform;
@@ -93,7 +59,7 @@
     }
   }
 
-  .nav__link--resume {
+  &__link--resume {
     order: 2;
     z-index: 2;
     background: $base-white;
@@ -107,8 +73,12 @@
       border-color: rgba($gray-light, 0.75);
     }
 
-    &:hover ~ .nav__link--hire {
-      transform: translateX(21%);
+    &:hover {
+      color: initial;
+
+      & ~ .nav__link--hire {
+        transform: translateX(21%);
+      }
     }
   }
 }

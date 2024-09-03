@@ -9,7 +9,7 @@ import 'styles/footer.scss';
 function Footer() {
   useGSAP(() => {
     const footer = document.querySelector('.footer');
-    const bottomNav = document.querySelector('.nav__bottom');
+    const bottomNav = document.querySelector('.nav');
 
     ScrollTrigger.create({
       trigger: footer,

@@ -47,6 +47,8 @@
     color: $base-white;
     transform: translateX(100%);
     background: $base-black;
+    box-sizing: border-box;
+    cursor: pointer;
 
     // Avoiding BEM for --dark modified for ease of toggling
     &.--dark {

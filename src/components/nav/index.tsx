@@ -1,8 +1,8 @@
 import { useGSAP } from '@gsap/react';
-import { Link } from '@remix-run/react';
 import gsap from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
+import { CONTACT_FORM_TITLE_ID } from 'components/contact';
 import { SLIDES_ITEM_CONTENT_SELECTOR } from 'components/rollingCarousel/constants';
 
 function Nav() {
@@ -27,6 +27,11 @@ function Nav() {
     });
   });
 
+  const scrollToContactFormTitle = () => {
+    // Note: Need to use gsap scrollTo instead of anchor linking as gsap doesnt play well with native scroll smooth
+    gsap.to(window, { scrollTo: `#${CONTACT_FORM_TITLE_ID}` });
+  };
+
   return (
     <div className="nav">
       <a
@@ -36,9 +41,12 @@ function Nav() {
       >
         Resume
       </a>
-      <Link to="/contact" className="nav__link nav__link--hire">
+      <button
+        onClick={scrollToContactFormTitle}
+        className="nav__link nav__link--hire"
+      >
         Hire me
-      </Link>
+      </button>
     </div>
   );
 }

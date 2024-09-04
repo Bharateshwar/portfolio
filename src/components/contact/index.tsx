@@ -58,7 +58,6 @@ function Contact() {
           <div className="loader" />
           <span>Send</span>
         </button>
-        {/* @TODO: Add loading indicator or UI */}
       </Form>
     </Container>
   );

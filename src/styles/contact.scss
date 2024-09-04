@@ -2,7 +2,46 @@
 @import 'utils';
 
 .contact-section {
-  margin-top: pxToVw(80);
+  margin: pxToVw(80) auto 0;
+  max-width: pxToVw(695);
+  position: relative;
+
+  h2 {
+    text-align: center;
+  }
+
+  form,
+  .success-state {
+    transition: opacity 0.25s ease;
+  }
+
+  .success-state {
+    z-index: 0;
+    opacity: 0;
+
+    &,
+    .lottie-player {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .lottie-player {
+      margin-top: pxToVw(40);
+    }
+  }
+
+  &.--email-sent {
+    form {
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .success-state {
+      opacity: 1;
+    }
+  }
 
   &,
   form {
@@ -15,6 +54,7 @@
     gap: pxToVw(24);
     margin-top: pxToVw(24);
     width: 100%;
+    z-index: 1;
 
     & > div {
       width: 100%;
@@ -58,9 +98,14 @@
     &.--error {
       outline-color: $error;
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      background: rgba($base-black, 0.9);
+    }
   }
 
-  button {
+  .submit-button {
     background: $base-black;
     color: $gray-light;
     height: 3.184vw;
@@ -72,6 +117,7 @@
     justify-content: center;
     cursor: pointer;
     transition: color 0.35s;
+    position: relative;
 
     &:disabled {
       cursor: not-allowed;
@@ -80,6 +126,26 @@
 
     &:hover:not(:disabled) {
       color: $base-white;
+    }
+
+    .loader {
+      @include absolute-center;
+      opacity: 0;
+    }
+
+    span,
+    .loader {
+      transition: opacity 0.25s ease;
+    }
+
+    &--is-loading {
+      span {
+        opacity: 0;
+      }
+
+      .loader {
+        opacity: 1;
+      }
     }
   }
 }

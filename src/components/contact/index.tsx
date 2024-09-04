@@ -5,12 +5,16 @@ import Container from 'components/container';
 import { action } from 'routes/_index';
 
 import 'styles/contact.scss';
+import 'styles/loader.scss';
 
 export const CONTACT_FORM_TITLE_ID = 'contact-form-title';
 
 function Contact() {
   const { Form, data, state } = useFetcher<typeof action>();
 
+  const isLoading = state === 'loading' || state === 'submitting';
+  const disableSubmitButton =
+    isLoading || (data && 'emailSent' in data && data?.emailSent);
   const emailError = data && 'errors' in data && data?.errors?.email;
   const messageError = data && 'errors' in data && data?.errors?.message;
 
@@ -27,6 +31,7 @@ function Contact() {
             className={cx({
               '--error': emailError,
             })}
+            disabled={isLoading}
           />
           {emailError && <div className="error-message">{emailError}</div>}
         </div>
@@ -36,6 +41,7 @@ function Contact() {
             placeholder="Share your thoughts, ideas, or questions. I'm all ears."
             rows={10}
             name="message"
+            disabled={isLoading}
             className={cx({
               '--error': messageError,
             })}
@@ -44,12 +50,15 @@ function Contact() {
         </div>
         <button
           type="submit"
-          disabled={data && 'emailSent' in data && data?.emailSent}
+          disabled={disableSubmitButton}
+          className={cx('submit-button', {
+            'submit-button--is-loading': isLoading,
+          })}
         >
-          Send
+          <div className="loader" />
+          <span>Send</span>
         </button>
         {/* @TODO: Add loading indicator or UI */}
-        {state === 'loading' && 'Loading...'}
       </Form>
     </Container>
   );

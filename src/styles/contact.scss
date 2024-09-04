@@ -58,9 +58,14 @@
     &.--error {
       outline-color: $error;
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      background: rgba($base-black, 0.9);
+    }
   }
 
-  button {
+  .submit-button {
     background: $base-black;
     color: $gray-light;
     height: 3.184vw;
@@ -72,6 +77,7 @@
     justify-content: center;
     cursor: pointer;
     transition: color 0.35s;
+    position: relative;
 
     &:disabled {
       cursor: not-allowed;
@@ -80,6 +86,26 @@
 
     &:hover:not(:disabled) {
       color: $base-white;
+    }
+
+    .loader {
+      @include absolute-center;
+      opacity: 0;
+    }
+
+    span,
+    .loader {
+      transition: opacity 0.25s ease;
+    }
+
+    &--is-loading {
+      span {
+        opacity: 0;
+      }
+
+      .loader {
+        opacity: 1;
+      }
     }
   }
 }

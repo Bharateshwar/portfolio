@@ -29,7 +29,7 @@ function Contact() {
     >
       <div className="success-state">
         <h2 className="h2-large">Thanks for that! Will reply ASAP.</h2>
-        <LottiePlayer src="/animations/email-writing.lottie" />
+        <LottiePlayer src="/animations/email-writing.lottie" speed={0.3} />
       </div>
       <Form method="POST">
         <h2 id={CONTACT_FORM_TITLE_ID} className="h2-large">

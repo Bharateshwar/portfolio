@@ -2,7 +2,34 @@
 @import 'utils';
 
 .contact-section {
-  margin-top: pxToVw(80);
+  margin: pxToVw(80) auto 0;
+  max-width: pxToVw(695);
+  position: relative;
+
+  form,
+  .lottie-player {
+    transition: opacity 0.25s ease;
+  }
+
+  .lottie-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    opacity: 0;
+  }
+
+  &.--email-sent {
+    form {
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .lottie-player {
+      opacity: 1;
+    }
+  }
 
   &,
   form {
@@ -15,6 +42,7 @@
     gap: pxToVw(24);
     margin-top: pxToVw(24);
     width: 100%;
+    z-index: 1;
 
     & > div {
       width: 100%;

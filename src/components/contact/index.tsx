@@ -2,6 +2,7 @@ import { useFetcher } from '@remix-run/react';
 import cx from 'classnames';
 
 import Container from 'components/container';
+import LottiePlayer from 'components/LottiePlayer';
 import { action } from 'routes/_index';
 
 import 'styles/contact.scss';
@@ -13,15 +14,22 @@ function Contact() {
   const { Form, data, state } = useFetcher<typeof action>();
 
   const isLoading = state === 'loading' || state === 'submitting';
-  const disableSubmitButton =
-    isLoading || (data && 'emailSent' in data && data?.emailSent);
+  const isEmailSent = data && 'emailSent' in data && data?.emailSent;
+  const disableSubmitButton = isLoading || isEmailSent;
   const emailError = data && 'errors' in data && data?.errors?.email;
   const messageError = data && 'errors' in data && data?.errors?.message;
 
   return (
-    <Container className="contact-section" isSection variant="secondary">
+    <Container
+      isSection
+      variant="secondary"
+      className={cx('contact-section', {
+        '--email-sent': isEmailSent,
+      })}
+    >
+      <LottiePlayer src="/animations/email-writing.lottie" />
       <h2 id={CONTACT_FORM_TITLE_ID} className="h2-large">
-        Say hello!
+        {isEmailSent ? 'Thank You! Reply is on Its Way!' : 'Say hello!'}
       </h2>
       <Form method="POST">
         <div>

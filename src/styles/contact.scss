@@ -6,17 +6,29 @@
   max-width: pxToVw(695);
   position: relative;
 
+  h2 {
+    text-align: center;
+  }
+
   form,
-  .lottie-player {
+  .success-state {
     transition: opacity 0.25s ease;
   }
 
-  .lottie-player {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .success-state {
     z-index: 0;
     opacity: 0;
+
+    &,
+    .lottie-player {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .lottie-player {
+      margin-top: pxToVw(40);
+    }
   }
 
   &.--email-sent {
@@ -26,7 +38,7 @@
       user-select: none;
     }
 
-    .lottie-player {
+    .success-state {
       opacity: 1;
     }
   }

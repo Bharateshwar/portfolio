@@ -27,11 +27,14 @@ function Contact() {
         '--email-sent': isEmailSent,
       })}
     >
-      <LottiePlayer src="/animations/email-writing.lottie" />
-      <h2 id={CONTACT_FORM_TITLE_ID} className="h2-large">
-        {isEmailSent ? 'Thank You! Reply is on Its Way!' : 'Say hello!'}
-      </h2>
+      <div className="success-state">
+        <h2 className="h2-large">Thanks for that! Will reply ASAP.</h2>
+        <LottiePlayer src="/animations/email-writing.lottie" />
+      </div>
       <Form method="POST">
+        <h2 id={CONTACT_FORM_TITLE_ID} className="h2-large">
+          Say hello!
+        </h2>
         <div>
           <input
             placeholder="Your email goes here."

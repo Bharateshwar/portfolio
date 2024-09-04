@@ -72,7 +72,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
     ScrollTrigger.create({
       trigger: ROLLING_CAROUSEL_SELECTOR,
       // @TODO: Make circle & slides pin when at center, there are alignment issues coz of 10% & padding bottom at slide items
-      start: 'top 10%',
+      start: 'center center',
       end: () => getScrollTriggerEnd(),
       pin: true,
       scrub: true,
@@ -115,7 +115,7 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
     slides.forEach((slide, index) => {
       ScrollTrigger.create({
         trigger: slide.parentNode as HTMLDivElement,
-        start: 'top 10%',
+        start: 'center center',
         end: () => getScrollTriggerEnd(true),
         pin: true,
         pinSpacing: false,

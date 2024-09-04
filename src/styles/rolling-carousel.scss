@@ -8,7 +8,7 @@
 .rolling-carousel {
   position: relative;
   width: 48.611vw;
-  height: 48.611vw;
+  height: 100vh;
 
   & > svg {
     height: 100%;
@@ -150,7 +150,7 @@
 .rolling-carousel-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 8.333vw 0;
+  margin: pxToVw(77) 0 8.333vw;
 }
 
 .slides {
@@ -170,7 +170,7 @@
       justify-content: center;
       gap: 1.111vw;
       will-change: opacity, transform;
-      padding-bottom: 15vh;
+      padding-top: 4vh;
     }
   }
 }

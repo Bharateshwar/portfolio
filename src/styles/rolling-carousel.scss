@@ -24,7 +24,7 @@
   }
 
   &__graphic {
-    border: 0.65vw solid $gray-light;
+    border: 0.65vw solid $base-white;
     border-radius: 4vw;
     height: 100%;
     width: 100%;
@@ -59,6 +59,7 @@
       &--one {
         width: 50vw;
         height: 30vw;
+        margin-left: pxToVw(3);
       }
 
       &--two {
@@ -66,7 +67,7 @@
           width: 20vw;
           height: 30vw;
           top: -10vw;
-          left: 20vw;
+          left: pxToVw(291);
           z-index: 2;
           position: absolute;
         }
@@ -82,7 +83,7 @@
         height: 40vw;
         width: 40vw;
         display: flex;
-        margin-left: 7vw;
+        margin-left: pxToVw(75);
         gap: 1vw;
 
         .rolling-carousel__graphic--1 {

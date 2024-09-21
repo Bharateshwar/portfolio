@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useRef } from 'react';
 
 import LayoutCircle from 'components/svg/layoutCircle';
+import { getAnimationToggleTrigger } from 'utils';
 
 import 'styles/rolling-carousel.scss';
 import {
@@ -60,10 +61,6 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
   const initRollingCarouselAnimation = (carouselItems: HTMLDivElement[]) => {
     // @TODO: Remove commented code non scrubbed rolling animation is finalized
     // const wrap = gsap.utils.wrap(0, 1);
-    // Animate items along svg path
-    // const rollingAnimation =
-    // @TODO: Pause animation if out of view
-    createRollingAnimation(carouselItems);
 
     // Fade items into view
     gsap.to(carouselItems, { opacity: 1 });
@@ -94,6 +91,10 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
       //   rollingAnimation.play();
       // },
     });
+
+    // Animates items along svg path
+    // const rollingAnimation =
+    createRollingAnimation(carouselItems);
   };
 
   const initSlidesAnimation = (carouselItems: HTMLDivElement[]) => {
@@ -263,6 +264,8 @@ function RollingCaoursel({ alignment = 'left' }: Props) {
       id: INITIAL_ANIMATION_ID,
       ease: 'none',
       runBackwards: alignment === 'left',
+      // Pause animation when not in view
+      scrollTrigger: getAnimationToggleTrigger(mainContainerRef.current),
     });
   };
 

@@ -2,6 +2,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap/dist/gsap';
 import { useRef } from 'react';
 
+import { getAnimationToggleTrigger } from 'utils';
+
 import 'styles/skills.scss';
 import {
   ANIMATION_DURATION,
@@ -30,6 +32,8 @@ function Skills() {
             duration: ANIMATION_DURATION,
             yoyo: true,
             repeat: -1,
+            // Pause animation when not in view
+            scrollTrigger: getAnimationToggleTrigger(mainContainerRef.current),
           });
         }
       });

@@ -4,13 +4,13 @@
 .skills-section {
   display: flex;
   flex-direction: column;
-  row-gap: pxToVw(40);
+  // row-gap: pxToVw(40);
   margin: 9.027vw 0;
 }
 
 .skills-row {
   display: flex;
-  gap: 2vw;
+  // gap: 2vw;
   width: max-content;
 
   &:nth-child(even) {
@@ -26,21 +26,26 @@
 
 .skills-list {
   display: flex;
-  gap: 4.16vw;
+  // gap: 4.16vw;
   align-items: center;
   flex-shrink: 0;
 
   ul {
     display: flex;
-    gap: 4.16vw;
+    // gap: 4.16vw;
   }
 
   &__title {
     flex-shrink: 0;
+    background: rgba($gray-dark, 0.75);
+    padding: 0.25vw 2.16vw;
   }
 
   &__item {
     display: inline;
+    border: 1px solid $base-black;
+    background: rgba($gray-dark, 0.2);
+    padding: 1vw 4.16vw;
 
     &__logo {
       height: 1.75vw;

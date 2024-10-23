@@ -2,8 +2,15 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap/dist/gsap';
 import { useRef } from 'react';
 
+import { getAnimationToggleTrigger } from 'utils';
+
 import 'styles/skills.scss';
-import { SKILL_DATA_ROWS, SkillDataRow, SkillItem } from './constants';
+import {
+  ANIMATION_DURATION,
+  SKILL_DATA_ROWS,
+  SkillDataRow,
+  SkillItem,
+} from './constants';
 
 function Skills() {
   const mainContainerRef = useRef<HTMLDivElement>(null);
@@ -22,9 +29,11 @@ function Skills() {
           gsap.to(row, {
             x: (index % 2 === 0 ? -1 : 1) * widthToScroll,
             ease: 'none',
-            duration: 10,
+            duration: ANIMATION_DURATION,
             yoyo: true,
             repeat: -1,
+            // Pause animation when not in view
+            scrollTrigger: getAnimationToggleTrigger(mainContainerRef.current),
           });
         }
       });

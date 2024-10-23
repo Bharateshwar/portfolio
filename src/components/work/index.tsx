@@ -28,6 +28,7 @@ function Work() {
   const mainContainerRef = useRef<HTMLDivElement | null>(null);
   const [activeItemIndex, setActiveItemIndex] = useState<number | null>(null);
   const activeItemTlRef = useRef<GSAPTimeline | null>(null);
+  const [disableWorkItems, setDisableWorkItems] = useState<boolean>(false);
 
   useGSAP(
     () => {
@@ -35,6 +36,7 @@ function Work() {
       if (activeItemTlRef.current) {
         activeItemTlRef.current.reverse();
         activeItemTlRef.current = null;
+        setDisableWorkItems(true);
       }
 
       // No action needed if no index is active
@@ -57,6 +59,9 @@ function Work() {
 
       const newTl = gsap.timeline({
         defaults: { ease: 'power1.inOut', duration: 0.4 },
+        onReverseComplete() {
+          setDisableWorkItems(false);
+        },
       });
 
       // animate elements
@@ -82,6 +87,7 @@ function Work() {
   );
 
   const getItemClickHandler = (index: number) => () =>
+    !disableWorkItems &&
     setActiveItemIndex((prevIndex) => (prevIndex === index ? null : index));
 
   const renderWorkHistoryItems = () => {
@@ -101,6 +107,7 @@ function Work() {
             key={index}
             onClick={getItemClickHandler(index)}
             type="button"
+            disabled={disableWorkItems}
           >
             <Container className="work-history__item__details-container">
               <div className="work-history__item__period-details">

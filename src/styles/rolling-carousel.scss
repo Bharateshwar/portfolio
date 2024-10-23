@@ -8,13 +8,14 @@
 .rolling-carousel {
   position: relative;
   width: 48.611vw;
-  height: 48.611vw;
+  height: 100vh;
 
   & > svg {
     height: 100%;
     width: 100%;
     z-index: -2;
     position: relative;
+    color: rgba($gray-light, 0.5);
   }
 
   &--left {
@@ -23,7 +24,7 @@
   }
 
   &__graphic {
-    border: 0.65vw solid $gray-dark;
+    border: 0.65vw solid $base-white;
     border-radius: 4vw;
     height: 100%;
     width: 100%;
@@ -58,6 +59,7 @@
       &--one {
         width: 50vw;
         height: 30vw;
+        margin-left: pxToVw(3);
       }
 
       &--two {
@@ -65,7 +67,7 @@
           width: 20vw;
           height: 30vw;
           top: -10vw;
-          left: 20vw;
+          left: pxToVw(291);
           z-index: 2;
           position: absolute;
         }
@@ -81,7 +83,7 @@
         height: 40vw;
         width: 40vw;
         display: flex;
-        margin-left: 7vw;
+        margin-left: pxToVw(75);
         gap: 1vw;
 
         .rolling-carousel__graphic--1 {
@@ -150,7 +152,7 @@
 .rolling-carousel-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 8.333vw 0;
+  margin: pxToVw(77) 0 8.333vw;
 }
 
 .slides {
@@ -170,7 +172,7 @@
       justify-content: center;
       gap: 1.111vw;
       will-change: opacity, transform;
-      padding-bottom: 15vh;
+      padding-top: 4vh;
     }
   }
 }

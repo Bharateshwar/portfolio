@@ -41,7 +41,10 @@ function Footer() {
   return (
     <footer className="footer">
       {renderFooterLinks()}
-      <span className="footer__note">Site designed & developed by Me.</span>
+      <span className="footer__note">
+        Site designed & developed by Me.
+        <img src="/images/flag-icon.webp" alt="Indian flag" />
+      </span>
     </footer>
   );
 }

@@ -9,8 +9,9 @@
     top 0.5s,
     bottom 0.5s;
 
+  // Avoiding BEM for --dark modified for ease of toggling
   &.--dark {
-    bottom: pxToVw(30);
+    bottom: pxToVw(40);
     right: pxToVw(50);
   }
 
@@ -34,9 +35,15 @@
       transform 0.3s;
 
     &.--dark {
-      height: 2.184vw;
-      width: 10.278vw;
-      font-size: pxToVw(14);
+      height: 2.5472vw;
+      width: 12.2224vw;
+      font-size: pxToVw(16);
+      border-color: $base-white;
+
+      &,
+      &:hover {
+        color: $base-white;
+      }
     }
   }
 
@@ -50,10 +57,8 @@
     box-sizing: border-box;
     cursor: pointer;
 
-    // Avoiding BEM for --dark modified for ease of toggling
     &.--dark {
-      color: rgba($gray-light, 0.75);
-      border-color: rgba($gray-light, 0.5);
+      border-color: $gray-light;
     }
 
     &:hover {
@@ -67,16 +72,8 @@
     background: $base-white;
     color: $base-black;
 
-    // Avoiding BEM for --dark modified for ease of toggling
     &.--dark {
-      /* @TODO: Create a reusable variable if used more than 2 times */
-      background: rgb(29, 29, 29);
-      border-color: rgba($gray-light, 0.75);
-
-      &,
-      &:hover {
-        color: rgba($gray-light, 0.75);
-      }
+      background: $gray-dark;
     }
 
     &:hover {

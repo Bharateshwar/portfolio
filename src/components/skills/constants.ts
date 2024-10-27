@@ -25,6 +25,7 @@ import ReactLogo from 'components/svg/reactLogo';
 import ReduxLogo from 'components/svg/reduxLogo';
 import RemixLogo from 'components/svg/remixLogo';
 import SassLogo from 'components/svg/sassLogo';
+import ShopifyLogo from 'components/svg/shopifyLogo';
 import StorybookLogo from 'components/svg/storybookLogo';
 import SvgoLogo from 'components/svg/svgoLogo';
 import Tabnine from 'components/svg/tabnineLogo';
@@ -50,7 +51,7 @@ export type SkillDataRow = {
 };
 
 const ROW_ONE: SkillDataRow = {
-  category: 'Frameworks & Libraries',
+  category: 'The cornerstones of my craft',
   items: [
     {
       name: 'React',
@@ -58,47 +59,34 @@ const ROW_ONE: SkillDataRow = {
       link: 'https://react.dev/',
     },
     {
-      name: 'Storybook',
-      logo: StorybookLogo,
-      link: 'https://storybook.js.org/',
+      name: 'NextJS',
+      logo: NextJsLogo,
+      link: 'https://nextjs.org/',
     },
     {
-      name: 'Tailwind',
-      logo: TailwindLogo,
-      link: 'https://tailwindcss.com/',
+      name: 'Gatsby',
+      logo: GatsbyLogo,
+      link: 'https://www.gatsbyjs.com/',
     },
     {
-      name: 'TypeScript',
-      logo: TsLogo,
-      link: 'https://www.typescriptlang.org/',
+      name: 'Shopify',
+      logo: ShopifyLogo,
+      link: 'https://shopify.com',
+    },
+    {
+      name: 'Remix',
+      logo: RemixLogo,
+      link: 'https://remix.run/',
     },
     {
       name: 'Vue',
       logo: VueLogo,
       link: 'https://vuejs.org/',
     },
-    { name: 'Git', logo: GitLogo, link: 'https://git-scm.com/' },
     {
-      name: 'Webflow',
-      logo: WebflowLogo,
-      link: 'https://www.webflow.com/',
-    },
-    { name: 'Tabnine', logo: Tabnine, link: 'https://tabnine.com/' },
-    {
-      name: 'Visual Studio Code',
-      logo: VsCodeLogo,
-      link: 'https://code.visualstudio.com/',
-    },
-  ],
-};
-
-const ROW_TWO: SkillDataRow = {
-  category: 'Lorem ipssum dolor sit amet',
-  items: [
-    {
-      name: 'GSAP',
-      logo: GsapLogo,
-      link: 'https://gsap.com',
+      name: 'Astro',
+      logo: AstroLogo,
+      link: 'https://astro.build/',
     },
     {
       name: 'HTML',
@@ -106,9 +94,14 @@ const ROW_TWO: SkillDataRow = {
       link: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
     },
     {
-      name: 'jQuery',
-      logo: JQueryLogo,
-      link: 'https://jquery.com/',
+      name: 'CSS',
+      logo: CssLogo,
+      link: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
+    },
+    {
+      name: 'TypeScript',
+      logo: TsLogo,
+      link: 'https://www.typescriptlang.org/',
     },
     {
       name: 'JavaScript',
@@ -116,33 +109,137 @@ const ROW_TWO: SkillDataRow = {
       link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
     },
     {
+      name: 'Webflow',
+      logo: WebflowLogo,
+      link: 'https://www.webflow.com/',
+    },
+    {
+      name: 'Bubble',
+      logo: BubbleLogo,
+      link: 'https://bubble.io/',
+    },
+  ],
+};
+
+const ROW_TWO: SkillDataRow = {
+  category: 'The extras that power up my projects',
+  items: [
+    {
+      name: 'Redux',
+      logo: ReduxLogo,
+      link: 'https://redux.js.org/',
+    },
+    {
+      name: 'GSAP',
+      logo: GsapLogo,
+      link: 'https://gsap.com',
+    },
+    {
+      name: 'Tailwind',
+      logo: TailwindLogo,
+      link: 'https://tailwindcss.com/',
+    },
+    {
+      name: 'Ant Design',
+      logo: AntdLogo,
+      link: 'https://ant.design',
+    },
+    {
       name: 'Material UI',
       logo: MuiLogo,
       link: 'https://mui.com/',
     },
-    { name: 'SVGO', logo: SvgoLogo, link: 'https://svgo.dev/' },
     {
-      name: 'NextJS',
-      logo: NextJsLogo,
-      link: 'https://nextjs.org/',
+      name: 'Sass',
+      logo: SassLogo,
+      link: 'https://sass-lang.com/',
     },
-    { name: 'ESLint', logo: EsLintLogo, link: 'https://eslint.org/' },
     {
-      name: 'NPM',
-      logo: NpmLogo,
-      link: 'https://www.npmjs.com/',
+      name: 'GraphQL',
+      logo: GraphQlLogo,
+      link: 'https://graphql.org/',
     },
     {
       name: 'React Hook Form',
       logo: ReactHookFormLogo,
       link: 'https://react-hook-form.com/',
     },
+    {
+      name: 'Storybook',
+      logo: StorybookLogo,
+      link: 'https://storybook.js.org/',
+    },
+    {
+      name: 'Lodash',
+      logo: LodashLogo,
+      link: 'https://lodash.com/',
+    },
+    {
+      name: 'jQuery',
+      logo: JQueryLogo,
+      link: 'https://jquery.com/',
+    },
+    {
+      name: 'BEM',
+      logo: BemLogo,
+      link: 'https://getbem.com/',
+    },
+    {
+      name: 'SVGO',
+      logo: SvgoLogo,
+      link: 'https://svgo.dev/',
+    },
   ],
 };
 
 const ROW_THREE: SkillDataRow = {
-  category: 'Lorem ipsum dolor sit amet',
+  category: 'The helpers that ease the grind',
   items: [
+    {
+      name: 'Prettier',
+      logo: PrettierLogo,
+      link: 'https://prettier.io/',
+    },
+    {
+      name: 'ESLint',
+      logo: EsLintLogo,
+      link: 'https://eslint.org/',
+    },
+    {
+      name: 'Vite',
+      logo: ViteLogo,
+      link: 'https://vitejs.dev/',
+    },
+    {
+      name: 'Webpack',
+      logo: WebpackLogo,
+      link: 'https://webpack.js.org/',
+    },
+    {
+      name: 'Git',
+      logo: GitLogo,
+      link: 'https://git-scm.com/',
+    },
+    {
+      name: 'Tabnine',
+      logo: Tabnine,
+      link: 'https://tabnine.com/',
+    },
+    {
+      name: 'Visual Studio Code',
+      logo: VsCodeLogo,
+      link: 'https://code.visualstudio.com/',
+    },
+    {
+      name: 'Yarn',
+      logo: YarnLogo,
+      link: 'https://yarnpkg.com/',
+    },
+    {
+      name: 'NPM',
+      logo: NpmLogo,
+      link: 'https://www.npmjs.com/',
+    },
     {
       name: 'Docker',
       logo: DockerLogo,
@@ -154,56 +251,14 @@ const ROW_THREE: SkillDataRow = {
       link: 'https://dotlottie.io/',
     },
     {
-      name: 'Gatsby',
-      logo: GatsbyLogo,
-      link: 'https://www.gatsbyjs.com/',
+      name: 'Jest',
+      logo: JestLogo,
+      link: 'https://jestjs.io/',
     },
     {
-      name: 'GraphQL',
-      logo: GraphQlLogo,
-      link: 'https://graphql.org/',
-    },
-    { name: 'Remix', logo: RemixLogo, link: 'https://remix.run/' },
-    {
-      name: 'Sass',
-      logo: SassLogo,
-      link: 'https://sass-lang.com/',
-    },
-    {
-      name: 'Redux',
-      logo: ReduxLogo,
-      link: 'https://redux.js.org/',
-    },
-    { name: 'Jest', logo: JestLogo, link: 'https://jestjs.io/' },
-    { name: 'Prettier', logo: PrettierLogo, link: 'https://prettier.io/' },
-    { name: 'Cypress', logo: CypressLogo, link: 'https://www.cypress.io/' },
-  ],
-};
-
-// @TODO: Remove export if exporting in main array below
-export const ROW_FOUR: SkillDataRow = {
-  category: 'Lorem ipsum',
-  items: [
-    { name: 'Ant Design', logo: AntdLogo, link: 'https://ant.design' },
-    { name: 'Astro', logo: AstroLogo, link: 'https://astro.build/' },
-    { name: 'BEM', logo: BemLogo, link: 'https://getbem.com/' },
-    { name: 'Bubble', logo: BubbleLogo, link: 'https://bubble.io/' },
-    {
-      name: 'CSS',
-      logo: CssLogo,
-      link: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
-    },
-    {
-      name: 'Yarn',
-      logo: YarnLogo,
-      link: 'https://yarnpkg.com/',
-    },
-    { name: 'Lodash', logo: LodashLogo, link: 'https://lodash.com/' },
-    { name: 'Vite', logo: ViteLogo, link: 'https://vitejs.dev/' },
-    {
-      name: 'Webpack',
-      logo: WebpackLogo,
-      link: 'https://webpack.js.org/',
+      name: 'Cypress',
+      logo: CypressLogo,
+      link: 'https://www.cypress.io/',
     },
     {
       name: 'Testing library',
@@ -213,10 +268,8 @@ export const ROW_FOUR: SkillDataRow = {
   ],
 };
 
-// @TODO: Finalise skill list
-export const SKILL_DATA_ROWS: SkillDataRow[] = [
-  ROW_ONE,
-  ROW_TWO,
-  ROW_THREE,
-  // ROW_FOUR,
-];
+export const ANIMATION_DURATION =
+  Math.max(ROW_ONE.items.length, ROW_TWO.items.length, ROW_THREE.items.length) *
+  2.25;
+
+export const SKILL_DATA_ROWS: SkillDataRow[] = [ROW_ONE, ROW_TWO, ROW_THREE];

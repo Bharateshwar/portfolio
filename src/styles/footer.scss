@@ -35,13 +35,21 @@
     background: $gray-light;
     border-radius: calc(1px * infinity);
     color: $base-white;
-    padding: 0 pxToVw(40);
+    padding-left: pxToVw(40);
     max-width: max-content;
     z-index: 1;
 
     &::before {
       width: pxToVw(60);
       left: 100%;
+    }
+
+    img {
+      height: 90%;
+      width: auto;
+      margin: pxToVw(-22) pxToVw(-30) 0 pxToVw(5);
+      border-left: pxToVw(2) solid rgba($gray-dark, 0.35);
+      transform: rotate(-15deg);
     }
   }
 

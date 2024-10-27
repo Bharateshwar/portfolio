@@ -7,6 +7,7 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { useRef } from 'react';
 
 import { loader as homePageLoader } from 'routes/_index';
+import { getAnimationToggleTrigger } from 'utils';
 
 import 'styles/testimonials.scss';
 import { ANALYTICS_EVENTS, EVENT_CATEGORIES, TESTIMONIALS } from './constants';
@@ -64,6 +65,8 @@ function Testimonials() {
         duration: TESTIMONIALS.length * 4.5,
         yoyo: true,
         repeat: -1,
+        // Pause animation when not in view
+        scrollTrigger: getAnimationToggleTrigger(containerRef.current),
       });
     },
     { scope: containerRef },
